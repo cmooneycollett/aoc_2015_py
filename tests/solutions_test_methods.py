@@ -2,6 +2,7 @@ import unittest
 import solutions.day_01
 import solutions.day_02
 import solutions.day_03
+import solutions.day_04
 
 
 class SolutionsTestMethods(unittest.TestCase):
@@ -35,6 +36,16 @@ class SolutionsTestMethods(unittest.TestCase):
         input = solutions.day_03.generate_input()
         solution = solutions.day_03.solve_part2(input)
         self.assertEqual(2631, solution)
+
+    def test_day_04_p1(self):
+        input = solutions.day_04.generate_input()
+        solution = solutions.day_04.solve_part1(input)
+        self.assertEqual(254575, solution)
+
+    def test_day_04_p2(self):
+        input = solutions.day_04.generate_input()
+        solution = solutions.day_04.solve_part2(input)
+        self.assertEqual(1038736, solution)
 
 
 if __name__ == "__main__":
