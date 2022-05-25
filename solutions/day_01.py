@@ -1,11 +1,16 @@
 def main():
     # Read in problem input
+    input = generate_input()
+    p1_solution = solve_part1(input)
+    p2_solution = solve_part2(input)
+    print("P1 solution - {}".format(p1_solution))
+    print("P2 solution - {}".format(p2_solution))
+
+
+def generate_input():
     with open("./inputs/day_01.txt") as file:
         input = file.read().strip()
-        p1_solution = solve_part1(input)
-        p2_solution = solve_part2(input)
-        print("P1 solution - {}".format(p1_solution))
-        print("P2 solution - {}".format(p2_solution))
+    return input
 
 
 def solve_part1(input) -> int:
@@ -13,6 +18,7 @@ def solve_part1(input) -> int:
     for c in input:
         if c == '(':
             floor += 1
+        else:
             floor -= 1
     return floor
 
