@@ -21,9 +21,9 @@ def process_input_file():
 
 
 def solve_part1(input):
-    regex_nice_1 = re.compile(r'^.*([aeiou]).*([aeiou]).*([aeiou]).*$')
-    regex_nice_2 = re.compile(r'^.*([a-z])\1.*$')
-    regex_bad_1 = re.compile(r'^.*(ab|cd|pq|xy).*$')
+    regex_nice_1 = re.compile(r"^.*([aeiou]).*([aeiou]).*([aeiou]).*$")
+    regex_nice_2 = re.compile(r"^.*([a-z])\1.*$")
+    regex_bad_1 = re.compile(r"^.*(ab|cd|pq|xy).*$")
     nice_count = 0
     for s in input:
         if regex_nice_1.match(s) and regex_nice_2.match(s) and not regex_bad_1.match(s):
@@ -32,7 +32,13 @@ def solve_part1(input):
 
 
 def solve_part2(input):
-    ()
+    regex_nice_1 = re.compile(r"^.*([a-z][a-z]).*\1.*$")
+    regex_nice_2 = re.compile(r"^.*([a-z])[a-z]\1.*$")
+    nice_count = 0
+    for s in input:
+        if regex_nice_1.match(s) and regex_nice_2.match(s):
+            nice_count += 1
+    return nice_count
 
 
 if __name__ == "__main__":

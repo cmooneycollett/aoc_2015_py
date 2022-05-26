@@ -53,6 +53,11 @@ class SolutionsTestMethods(unittest.TestCase):
         solution = solutions.day_05.solve_part1(input)
         self.assertEqual(255, solution)
 
+    def test_day_05_p2(self):
+        input = solutions.day_05.process_input_file()
+        solution = solutions.day_05.solve_part2(input)
+        self.assertEqual(55, solution)
+
 
 if __name__ == "__main__":
     unittest.main()
