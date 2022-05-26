@@ -3,14 +3,14 @@ import re
 
 def main():
     # Read problem input file
-    input = generate_input()
+    input = process_input_file()
     p1_solution = solve_part1(input)
     p2_solution = solve_part2(input)
     print("P1 solution - {}".format(p1_solution))
     print("P2 solution - {}".format(p2_solution))
 
 
-def generate_input():
+def process_input_file():
     with open("./inputs/day_02.txt") as file:
         raw_input = file.read().strip()
         data = []
