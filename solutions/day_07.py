@@ -1,7 +1,6 @@
+import copy
 import re
 from enum import Enum, auto, unique
-import copy
-from webbrowser import Opera
 
 
 @unique
@@ -103,7 +102,16 @@ def solve_part1(input):
 
 
 def solve_part2(input):
-    ()
+    # Conduct first pass
+    wire_known_values = {}
+    evaluate_wire(input, wire_known_values, "a")
+    # Override value on "b" wire
+    new_wire_states = copy.deepcopy(input)
+    new_wire_states["b"] = (Operation.OP_VALUE, wire_known_values["a"])
+    # Conduct second pass
+    wire_known_values = {}
+    evaluate_wire(new_wire_states, wire_known_values, "a")
+    return wire_known_values["a"]
 
 
 def evaluate_wire(wire_states, wire_known_values, target_wire):
