@@ -1,6 +1,7 @@
 import copy
 import re
 from enum import Enum, auto, unique
+from webbrowser import Opera
 
 
 @unique
@@ -117,111 +118,44 @@ def solve_part2(input):
 def evaluate_wire(wire_states, wire_known_values, target_wire):
     if target_wire in wire_known_values:
         return
+    # Initialise op parameters and result
+    left = None
+    right = None
+    op_result = None
+    # Evaluate left
+    if type(wire_states[target_wire][1]) is str:
+        new_target_wire = wire_states[target_wire][1]
+        evaluate_wire(wire_states, wire_known_values, new_target_wire)
+        left = wire_known_values[new_target_wire]
+    else:
+        left = wire_states[target_wire][1]
+    # Evaluate right
+    if (wire_states[target_wire][0] is Operation.OP_AND or
+            wire_states[target_wire][0] is Operation.OP_LSHIFT or
+            wire_states[target_wire][0] is Operation.OP_OR or
+            wire_states[target_wire][0] is Operation.OP_RSHIFT):
+        if type(wire_states[target_wire][2]) is str:
+            new_target_wire = wire_states[target_wire][2]
+            evaluate_wire(wire_states, wire_known_values, new_target_wire)
+            right = wire_known_values[new_target_wire]
+        else:
+            right = wire_states[target_wire][2]
+    # Calculate op result
     match wire_states[target_wire][0]:
         case Operation.OP_VALUE:
-            if type(wire_states[target_wire][1]) is str:
-                new_target_wire = wire_states[target_wire][1]
-                evaluate_wire(wire_states, wire_known_values, new_target_wire)
-                wire_known_values[target_wire] = wire_known_values[new_target_wire]
-            else:
-                wire_known_values[target_wire] = wire_states[target_wire][1]
+            op_result = left
         case Operation.OP_AND:
-            # Evaluate left
-            left = None
-            if type(wire_states[target_wire][1]) is str:
-                new_target_wire = wire_states[target_wire][1]
-                evaluate_wire(wire_states, wire_known_values, new_target_wire)
-                left = wire_known_values[new_target_wire]
-            else:
-                left = wire_states[target_wire][1]
-            # Evaluate right
-            right = None
-            if type(wire_states[target_wire][2]) is str:
-                new_target_wire = wire_states[target_wire][2]
-                evaluate_wire(wire_states, wire_known_values, new_target_wire)
-                right = wire_known_values[new_target_wire]
-            else:
-                right = wire_states[target_wire][2]
-            # Calculate op result
             op_result = left & right
-            # Update known values
-            wire_known_values[target_wire] = op_result
         case Operation.OP_LSHIFT:
-            # Evaluate left
-            left = None
-            if type(wire_states[target_wire][1]) is str:
-                new_target_wire = wire_states[target_wire][1]
-                evaluate_wire(wire_states, wire_known_values, new_target_wire)
-                left = wire_known_values[new_target_wire]
-            else:
-                left = wire_states[target_wire][1]
-            # Evaluate right
-            right = None
-            if type(wire_states[target_wire][2]) is str:
-                new_target_wire = wire_states[target_wire][2]
-                evaluate_wire(wire_states, wire_known_values, new_target_wire)
-                right = wire_known_values[new_target_wire]
-            else:
-                right = wire_states[target_wire][2]
-            # Calculate op result
             op_result = left << right
-            # Update known values
-            wire_known_values[target_wire] = op_result
         case Operation.OP_NOT:
-            # Evaluate left
-            left = None
-            if type(wire_states[target_wire][1]) is str:
-                new_target_wire = wire_states[target_wire][1]
-                evaluate_wire(wire_states, wire_known_values, new_target_wire)
-                left = wire_known_values[new_target_wire]
-            else:
-                left = wire_states[target_wire][1]
-            # Calculate op result
             op_result = ~left
-            # Update known values
-            wire_known_values[target_wire] = op_result
         case Operation.OP_OR:
-            # Evaluate left
-            left = None
-            if type(wire_states[target_wire][1]) is str:
-                new_target_wire = wire_states[target_wire][1]
-                evaluate_wire(wire_states, wire_known_values, new_target_wire)
-                left = wire_known_values[new_target_wire]
-            else:
-                left = wire_states[target_wire][1]
-            # Evaluate right
-            right = None
-            if type(wire_states[target_wire][2]) is str:
-                new_target_wire = wire_states[target_wire][2]
-                evaluate_wire(wire_states, wire_known_values, new_target_wire)
-                right = wire_known_values[new_target_wire]
-            else:
-                right = wire_states[target_wire][2]
-            # Calculate op result
             op_result = left | right
-            # Update known values
-            wire_known_values[target_wire] = op_result
         case Operation.OP_RSHIFT:
-            # Evaluate left
-            left = None
-            if type(wire_states[target_wire][1]) is str:
-                new_target_wire = wire_states[target_wire][1]
-                evaluate_wire(wire_states, wire_known_values, new_target_wire)
-                left = wire_known_values[new_target_wire]
-            else:
-                left = wire_states[target_wire][1]
-            # Evaluate right
-            right = None
-            if type(wire_states[target_wire][2]) is str:
-                new_target_wire = wire_states[target_wire][2]
-                evaluate_wire(wire_states, wire_known_values, new_target_wire)
-                right = wire_known_values[new_target_wire]
-            else:
-                right = wire_states[target_wire][2]
-            # Calculate op result
             op_result = left >> right
-            # Update known values
-            wire_known_values[target_wire] = op_result
+    # Update known wire values
+    wire_known_values[target_wire] = op_result
 
 
 if __name__ == "__main__":
