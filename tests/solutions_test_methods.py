@@ -5,6 +5,7 @@ import solutions.day_03
 import solutions.day_04
 import solutions.day_05
 import solutions.day_06
+import solutions.day_07
 
 
 class SolutionsTestMethods(unittest.TestCase):
@@ -68,6 +69,11 @@ class SolutionsTestMethods(unittest.TestCase):
         input = solutions.day_06.process_input_file()
         solution = solutions.day_06.solve_part2(input)
         self.assertEqual(14110788, solution)
+
+    def test_day_07_p1(self):
+        input = solutions.day_07.process_input_file()
+        solution = solutions.day_07.solve_part1(input)
+        self.assertEqual(956, solution)
 
 
 if __name__ == "__main__":
