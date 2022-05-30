@@ -4,8 +4,8 @@ from unittest import result
 def main():
     input = process_input_file()
     p1_solution = solve_part1(input)
-    p2_solution = solve_part2(input)
     print("P1 solution - {}".format(p1_solution))
+    p2_solution = solve_part2(input)
     print("P2 solution - {}".format(p2_solution))
 
 
@@ -22,7 +22,10 @@ def solve_part1(input):
 
 
 def solve_part2(input):
-    ()
+    result_str = str(input)
+    for _ in range(0, 50):
+        result_str = apply_looksay_iteration(result_str)
+    return len(result_str)
 
 
 def apply_looksay_iteration(input_str):
@@ -44,7 +47,7 @@ def apply_looksay_iteration(input_str):
             else:
                 break
         # Add to the output string
-        output_str = "{}{}{}".format(output_str, str(streak_len), current_c)
+        output_str = "".join([output_str, str(streak_len), current_c])
     return output_str
 
 
