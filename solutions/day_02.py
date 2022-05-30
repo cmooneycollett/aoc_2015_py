@@ -2,11 +2,10 @@ import re
 
 
 def main():
-    # Read problem input file
     input = process_input_file()
     p1_solution = solve_part1(input)
-    p2_solution = solve_part2(input)
     print("P1 solution - {}".format(p1_solution))
+    p2_solution = solve_part2(input)
     print("P2 solution - {}".format(p2_solution))
 
 
