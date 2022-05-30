@@ -1,5 +1,5 @@
-import re
 import itertools
+import re
 
 
 def main():
@@ -48,7 +48,18 @@ def solve_part1(input):
 
 
 def solve_part2(input):
-    ()
+    cities = list(input.keys())
+    city_perms = itertools.permutations(cities)
+    max_distance = None
+    for perm in city_perms:
+        distance = 0
+        for i in range(0, len(perm) - 1):
+            distance += input[perm[i]][perm[i + 1]]
+        if max_distance is None:
+            max_distance = distance
+        elif distance > max_distance:
+            max_distance = distance
+    return max_distance
 
 
 if __name__ == "__main__":
