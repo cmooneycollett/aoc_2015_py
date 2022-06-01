@@ -1,0 +1,11 @@
+import solutions.day_01
+import solutions.day_02
+import solutions.day_03
+import solutions.day_04
+import solutions.day_05
+import solutions.day_06
+import solutions.day_07
+import solutions.day_08
+import solutions.day_09
+import solutions.day_10
+import solutions.day_11

@@ -1,3 +1,7 @@
+"""Solution code for AOC 2015 Day 11.
+"""
+
+
 import re
 
 
@@ -27,15 +31,26 @@ def increment_string(input_chars):
 
 def process_input_file():
     with open("./inputs/day_11.txt") as file:
-        return list(file.read().strip())
+        return file.read().strip()
 
 
 def solve_part1(input):
+    """Find the next valid password after the given initial password."""
+    return find_next_valid_password(input)
+
+
+def solve_part2(input):
+    """Find the second next valid password after the given initial password."""
+    first_pass = find_next_valid_password(input)
+    return find_next_valid_password(first_pass)
+
+
+def find_next_valid_password(input_password):
     regex_triple_char = re.compile(
         r"(abc|bcd|cde|def|efg|fgh|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz)")
     regex_pairs = re.compile(r"([a-z])\1.*([a-z])\2")
     regex_bad_letters = re.compile(r"(i|l|o)")
-    new_password_chars = input.copy()
+    new_password_chars = list(input_password)
     while True:
         new_password_joined = "".join(new_password_chars)
         # Increment the password
@@ -51,10 +66,6 @@ def solve_part1(input):
             continue
         # New password is deemed valid
         return new_password_joined
-
-
-def solve_part2(input):
-    ()
 
 
 if __name__ == "__main__":

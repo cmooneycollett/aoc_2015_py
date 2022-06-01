@@ -1,15 +1,6 @@
 import unittest
-import solutions.day_01
-import solutions.day_02
-import solutions.day_03
-import solutions.day_04
-import solutions.day_05
-import solutions.day_06
-import solutions.day_07
-import solutions.day_08
-import solutions.day_09
-import solutions.day_10
-import solutions.day_11
+
+import solutions
 
 
 class SolutionsTestMethods(unittest.TestCase):
@@ -108,7 +99,7 @@ class SolutionsTestMethods(unittest.TestCase):
         input = solutions.day_10.process_input_file()
         solution = solutions.day_10.solve_part1(input)
         self.assertEqual(329356, solution)
-    
+
     def test_day_10_p2(self):
         input = solutions.day_10.process_input_file()
         solution = solutions.day_10.solve_part2(input)
@@ -118,6 +109,11 @@ class SolutionsTestMethods(unittest.TestCase):
         input = solutions.day_11.process_input_file()
         solution = solutions.day_11.solve_part1(input)
         self.assertEqual("hepxxyzz", solution)
+
+    def test_day_11_p2(self):
+        input = solutions.day_11.process_input_file()
+        solution = solutions.day_11.solve_part2(input)
+        self.assertEqual("heqaabcc", solution)
 
 
 if __name__ == "__main__":
