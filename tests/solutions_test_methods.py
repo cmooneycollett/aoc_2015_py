@@ -115,6 +115,11 @@ class SolutionsTestMethods(unittest.TestCase):
         solution = solutions.day_11.solve_part2(input)
         self.assertEqual("heqaabcc", solution)
 
+    def test_day_12_p1(self):
+        input = solutions.day_12.process_input_file()
+        solution = solutions.day_12.solve_part1(input)
+        self.assertEqual(156366, solution)
+
 
 if __name__ == "__main__":
     unittest.main()
