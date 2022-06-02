@@ -48,20 +48,49 @@ def solve_part1(input):
     Finds the total score for the highest-scoring cookie by combining the input
     ingredients, using exactly 100 units (tsp) of ingredients total.
     """
+    return calculate_optimal_cookie_score(input)
+
+
+def solve_part2(input):
+    """
+    Finds the total score for the highest-scoring cookie with exactly 500
+    calories by combining the input ingredients, using exactly 100 units (tsp)
+    of ingredients total.
+    """
+    return calculate_optimal_cookie_score(input, calorie_req=500)
+
+
+def calculate_optimal_cookie_score(ingredients, calorie_req=None):
+    """
+    Finds the total score for the highest-scoring cookie (with exact calorie
+    requirement if specified) by combining the input ingredients, using exactly
+    100 units (tsp) of ingredients total.
+    """
     max_cookie_score = None
     for n0 in range(0, 100):    # sprinkes
         for n1 in range(0, 100 - n0):   # peanutbutter
             for n2 in range(0, 100 - n0 - n1):  # frosting
-                n3 = 100 - n0 - n1 - n2 # sugar
+                n3 = 100 - n0 - n1 - n2  # sugar
+                # Check calorie total
+                if calorie_req is not None:
+                    calories = ingredients[0].calories * n0 + ingredients[1].calories * \
+                        n1 + ingredients[2].calories * \
+                        n2 + ingredients[3].calories * n3
+                    if calories != calorie_req:
+                        continue
                 # Calculate parameter scores
-                score_c = input[0].capacity * n0 + input[1].capacity * \
-                    n1 + input[2].capacity * n2 + input[3].capacity * n3
-                score_d = input[0].durability * n0 + input[1].durability * \
-                    n1 + input[2].durability * n2 + input[3].durability * n3
-                score_f = input[0].flavor * n0 + input[1].flavor * \
-                    n1 + input[2].flavor * n2 + input[3].flavor * n3
-                score_t = input[0].texture * n0 + input[1].texture * \
-                    n1 + input[2].texture * n2 + input[3].texture * n3
+                score_c = ingredients[0].capacity * n0 + ingredients[1].capacity * \
+                    n1 + ingredients[2].capacity * \
+                    n2 + ingredients[3].capacity * n3
+                score_d = ingredients[0].durability * n0 + ingredients[1].durability * \
+                    n1 + ingredients[2].durability * \
+                    n2 + ingredients[3].durability * n3
+                score_f = ingredients[0].flavor * n0 + ingredients[1].flavor * \
+                    n1 + ingredients[2].flavor * \
+                    n2 + ingredients[3].flavor * n3
+                score_t = ingredients[0].texture * n0 + ingredients[1].texture * \
+                    n1 + ingredients[2].texture * \
+                    n2 + ingredients[3].texture * n3
                 # Calculate cookie score
                 cookie_score = 0
                 if score_c > 0 and score_d > 0 and score_f > 0 and score_t > 0:
@@ -69,10 +98,6 @@ def solve_part1(input):
                 if max_cookie_score is None or cookie_score > max_cookie_score:
                     max_cookie_score = cookie_score
     return max_cookie_score
-
-
-def solve_part2(input):
-    ()
 
 
 if __name__ == "__main__":
