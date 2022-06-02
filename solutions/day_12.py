@@ -1,3 +1,4 @@
+import json
 import re
 
 
@@ -24,7 +25,32 @@ def solve_part1(input):
 
 
 def solve_part2(input):
-    ()
+    numbers_valid = []
+    json_data = json.loads(input)
+    # Discover all valid numbers within the json data
+    discover_valid_numbers(numbers_valid, json_data)
+    # Return the total of all valid numbers
+    return sum(numbers_valid)
+
+
+def discover_valid_numbers(numbers_valid, obj):
+    if isinstance(obj, int):
+        numbers_valid.append(obj)
+    elif isinstance(obj, list):
+        for x in obj:
+            if isinstance(x, int):
+                numbers_valid.append(x)
+            elif isinstance(x, list) or isinstance(x, dict):
+                discover_valid_numbers(numbers_valid, x)
+    elif isinstance(obj, dict):
+        # Check for invalid object
+        if "red" in obj.values():
+            return
+        for x in obj.values():
+            if isinstance(x, int):
+                numbers_valid.append(x)
+            elif isinstance(x, list) or isinstance(x, dict):
+                discover_valid_numbers(numbers_valid, x)
 
 
 if __name__ == "__main__":
