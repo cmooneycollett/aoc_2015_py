@@ -11,11 +11,13 @@ def main():
 
 
 def process_input_file():
+    """Processes contents of problem input file into form (string) ready for analysis by solvers."""
     with open("./inputs/day_12.txt") as file:
         return file.read().strip()
 
 
 def solve_part1(input):
+    """Calculates the total of all numbers discovered in the json data serialised in input."""
     numbers_raw = re.findall(r"-?\d+", input)
     numbers = [int(n) for n in numbers_raw]
     total = 0
@@ -25,6 +27,10 @@ def solve_part1(input):
 
 
 def solve_part2(input):
+    """
+    Calculates the total of all valid numbers (not within a json object containing a value of
+    \"red\") discovered in the json data serialised in input.
+    """
     numbers_valid = []
     json_data = json.loads(input)
     # Discover all valid numbers within the json data
@@ -34,6 +40,13 @@ def solve_part2(input):
 
 
 def discover_valid_numbers(numbers_valid, obj):
+    """
+    Find all valid numbers (i.e. not within a python dict (json object) containing a value of
+    \"red\") by recursively inspecting each object and value discovered. String values are ignored
+    because they do not contain valid numbers, other values or data structures with their own
+    values.
+    """
+    # Handle cases for int, list and dict - str values are ignored
     if isinstance(obj, int):
         numbers_valid.append(obj)
     elif isinstance(obj, list):
