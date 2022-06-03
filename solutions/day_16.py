@@ -11,10 +11,11 @@ def main():
 
 def process_input_file():
     input = []
-    regex_sue = re.compile(r"^Sue (\d+): "
-                           r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+), "
-                           r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+), "
-                           r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+)$")
+    regex_sue = re.compile(
+        r"^Sue (\d+): "
+        r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+), "
+        r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+), "
+        r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+)$")
     with open("./inputs/day_16.txt") as file:
         for line in file.readlines():
             line = line.strip()
