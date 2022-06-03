@@ -48,12 +48,40 @@ def solve_part1(input):
                 is_candidate = False
                 break
         if is_candidate:
-            sue_candidate_indices.append(i)
-    return sue_candidate_indices[0] + 1
+            sue_candidate_indices.append(i + 1)
+    return sue_candidate_indices[0]
 
 
 def solve_part2(input):
-    ()
+    """
+    Determines which is the real Aunt Sue by matching observations against the
+    output information from the MFCSAM, taking into account the greater than
+    fields for "cats" and "trees", and the less than fields for "pomeranians"
+    and "goldfish".
+    """
+    sue_details = {"children": 3, "cats": 7, "samoyeds": 2, "pomeranians": 3,
+                   "akitas": 0, "vizslas": 0, "goldfish": 5, "trees": 3, "cars": 2, "perfumes": 1}
+    sue_candidate_indices = []
+    for i in range(0, len(input)):
+        sue = input[i]
+        is_candidate = True
+        for (field, val) in sue.items():
+            match field:
+                case "children": is_candidate = (val == sue_details[field])
+                case "cats": is_candidate = (val > sue_details[field])
+                case "samoyeds": is_candidate = (val == sue_details[field])
+                case "pomeranians": is_candidate = (val < sue_details[field])
+                case "akitas": is_candidate = (val == sue_details[field])
+                case "vizslas": is_candidate = (val == sue_details[field])
+                case "goldfish": is_candidate = (val < sue_details[field])
+                case "trees": is_candidate = (val > sue_details[field])
+                case "cars": is_candidate = (val == sue_details[field])
+                case "perfumes": is_candidate = (val == sue_details[field])
+            if not is_candidate:
+                break
+        if is_candidate:
+            sue_candidate_indices.append(i + 1)
+    return sue_candidate_indices[0]
 
 
 if __name__ == "__main__":
