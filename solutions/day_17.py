@@ -14,29 +14,44 @@ def process_input_file():
 
 
 def solve_part1(input):
-    return count_subsets_adding_to_total(input, 150)
+    return sum(count_subsets_adding_to_total(input, 150).values())
 
 
 def solve_part2(input):
-    ()
+    container_counts = count_subsets_adding_to_total(input, 150)
+    min_containers = min(container_counts.keys())
+    return container_counts[min_containers]
 
 
 def count_subsets_adding_to_total(values, sum_total):
-    subset_count = count_subsets_adding_to_total_recursive(
-        values, sum_total, 0, 0)
-    return subset_count
+    """
+    Counts the number of subsets from the input values that add to the given
+    total. Return value is dict containing how many times (value) n elements
+    (key) were found to add up to exactly the given total.
+    """
+    container_counts = {}
+    count_subsets_adding_to_total_recursive(
+        values, sum_total, 0, 0, 0, container_counts)
+    return container_counts
 
 
-def count_subsets_adding_to_total_recursive(values, sum_total, i, current_total):
-    subset_count = 0
+def count_subsets_adding_to_total_recursive(
+        values, sum_total, i, current_total, total_containers, container_counts):
+    """
+    Resursively processes the values list to find the combinations of input
+    elements adding up to the given total.
+    """
     if current_total == sum_total:
-        subset_count += 1
+        if total_containers not in container_counts:
+            container_counts[total_containers] = 1
+        else:
+            container_counts[total_containers] += 1
     elif current_total < sum_total and i < len(values):
-        subset_count += count_subsets_adding_to_total_recursive(
-            values, sum_total, i + 1, current_total + values[i])
-        subset_count += count_subsets_adding_to_total_recursive(
-            values, sum_total, i + 1, current_total)
-    return subset_count
+        count_subsets_adding_to_total_recursive(values, sum_total, i + 1,
+                current_total + values[i], total_containers + 1,
+                container_counts)
+        count_subsets_adding_to_total_recursive(values, sum_total, i + 1,
+                current_total, total_containers, container_counts)
 
 
 if __name__ == "__main__":

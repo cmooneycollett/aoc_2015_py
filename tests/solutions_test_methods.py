@@ -170,6 +170,11 @@ class SolutionsTestMethods(unittest.TestCase):
         solution = solutions.day_17.solve_part1(input)
         self.assertEqual(1638, solution)
 
+    def test_day_17_p2(self):
+        input = solutions.day_17.process_input_file()
+        solution = solutions.day_17.solve_part2(input)
+        self.assertEqual(17, solution)
+
 
 if __name__ == "__main__":
     unittest.main()
