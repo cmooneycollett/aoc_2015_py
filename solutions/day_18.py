@@ -1,3 +1,6 @@
+from copy import deepcopy
+
+
 def main():
     input = process_input_file()
     p1_solution = solve_part1(input)
@@ -18,12 +21,33 @@ def process_input_file():
 
 
 def solve_part1(input):
-    grid = input
-    for _x in range(0, 100):
+    grid = animate_light_grid(input, 100)
+    return sum(x.count("#") for x in grid)
+
+
+def solve_part2(input):
+    # Set the input grid corners to initially be on
+    input_grid = deepcopy(input)
+    input_grid[0][0] = "#"      # x: 0, y: 0
+    input_grid[0][99] = "#"     # x: 99, y: 0
+    input_grid[99][0] = "#"     # x: 0, y: 99
+    input_grid[99][99] = "#"    # x: 99, y: 99
+    grid = animate_light_grid(input_grid, 100, corner_lights_stuck_on=True)
+    return sum(x.count("#") for x in grid)
+
+
+def animate_light_grid(input_grid, steps, corner_lights_stuck_on=False):
+    grid = input_grid
+    for _i in range(0, steps):
         new_grid = []
-        for y in range(0, 100):
+        for y in range(0, len(grid)):
             new_grid.append([])
-            for x in range(0, 100):
+            for x in range(0, len(grid[y])):
+                if corner_lights_stuck_on and (
+                        x == 0 and y == 0 or x == 99 and y == 0 or
+                        x == 0 and y == 99 or x == 99 and y == 99):
+                    new_grid[y].append("#")
+                    continue
                 # Determine state of cell of new grid
                 neighbour_states = count_neighbour_states(grid, x, y)
                 match grid[y][x]:
@@ -38,11 +62,7 @@ def solve_part1(input):
                         else:
                             new_grid[y].append(".")
         grid = new_grid
-    return sum(x.count("#") for x in grid)
-
-
-def solve_part2(input):
-    ()
+    return grid
 
 
 def calculate_surrounding_locations(x, y, x_min, y_min, x_max, y_max):
@@ -61,7 +81,8 @@ def calculate_surrounding_locations(x, y, x_min, y_min, x_max, y_max):
 
 def count_neighbour_states(grid, x, y):
     output = {"#": 0, ".": 0}
-    surrounding_points = calculate_surrounding_locations(x, y, 0, 0, 99, 99)
+    surrounding_points = calculate_surrounding_locations(
+        x, y, 0, 0, len(grid) - 1, len(grid) - 1)
     for (x_0, y_0) in surrounding_points:
         output[grid[y_0][x_0]] += 1
     return output
