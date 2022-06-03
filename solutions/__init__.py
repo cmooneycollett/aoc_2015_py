@@ -13,3 +13,4 @@ import solutions.day_12
 import solutions.day_13
 import solutions.day_14
 import solutions.day_15
+import solutions.day_16
