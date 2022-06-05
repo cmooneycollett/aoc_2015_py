@@ -57,7 +57,41 @@ def solve_part1(input):
 
 
 def solve_part2(input):
-    ()
+    """
+    Determines the fewest replacement steps required to build the input medicine
+    molecule from a single electron "e".
+    """
+    molecule = str(input[0])
+    reverse_replacements = reverse_replacement_recipes(input[1])
+    total_steps = 0
+    while True:
+        # Check if we have reached the fully reduced molecule
+        if molecule == "e":
+            break
+        # Find longest string that can be reverse-replaced
+        from_str = ""
+        for target_str in reverse_replacements.keys():
+            # Tie-broken by first target string given in problem input file
+            if target_str in molecule and len(target_str) > len(from_str):
+                from_str = target_str
+        # Replace each occurrence, counting each as an additional step
+        to_str = reverse_replacements[from_str]
+        num_replacements = len(re.findall(from_str, molecule))
+        molecule = molecule.replace(from_str, to_str)
+        total_steps += num_replacements
+    return total_steps
+
+
+def reverse_replacement_recipes(recipes):
+    """
+    Reverses the relationship between the find and replace strings given in the
+    replacement recipes - going from one-to-many, to a one-to-one relationship.
+    """
+    output = {}
+    for (find, replacements) in recipes.items():
+        for replace in replacements:
+            output[replace] = find
+    return output
 
 
 if __name__ == "__main__":
