@@ -29,17 +29,22 @@ def solve_part1(input):
 
 
 def solve_part2(input):
-    ()
-
-
-def find_factors(n):
-    factors = []
-    limit = math.isqrt(n) + 1
-    for v in range(1, limit + 1):
-        if n % v == 0:
-            factors.append(v)
-    factors.append(n)
-    return factors
+    target = input
+    presets_record = {}
+    elf = 1
+    while True:
+        # Elf only visits its first 50 houses
+        for mult in range(1, 51):
+            if (elf * mult) in presets_record:
+                presets_record[elf * mult] += elf * 11
+            else:
+                presets_record[elf * mult] = elf * 11
+        # Check if present target has been reached
+        if presets_record[elf] >= target:
+            break
+        else:
+            elf += 1
+    return elf
 
 
 if __name__ == "__main__":
