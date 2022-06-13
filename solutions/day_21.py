@@ -57,12 +57,15 @@ def solve_part1(input):
     """
     boss_entity = input
     item_stat_combos = determine_item_combinations()
-    min_cost = process_combos(item_stat_combos, boss_entity, True, True)
+    min_cost = process_combos(item_stat_combos, boss_entity, True)
     return min_cost
 
 
 def solve_part2(input):
-    ()
+    boss_entity = input
+    item_stat_combos = determine_item_combinations()
+    min_cost = process_combos(item_stat_combos, boss_entity, False)
+    return min_cost
 
 
 def generate_items():
@@ -106,7 +109,7 @@ def determine_item_combinations():
     armour = items["Armour"]
     rings = items["Rings"]
     # Determine all possible combinations of items
-    two_ring_combos = itertools.combinations(rings.values(), 2)
+    two_ring_combos = list(itertools.combinations(rings.values(), 2))
     # Combos: Weapon + 0 Armour + 0 Rings
     w_0a_0r_combos = [[a] for a in weapons.values()]
     # Combos: Weapon + Armour + 0 Rings
@@ -133,7 +136,6 @@ def determine_combo_cost(
     """
     Determines the cost of the combo if it the player win condition is met. Otherwise returns None.
     """
-    target_cost = None
     cost = 0
     player_entity = Entity(100, 0, 0)
     for item_stat in item_stat_combo:
@@ -142,32 +144,36 @@ def determine_combo_cost(
         player_entity.armour += item_stat.armour
     player_turns = player_entity.calculate_turns_to_defeat(boss_entity)
     boss_turns = boss_entity.calculate_turns_to_defeat(player_entity)
-    match player_win:
-        case True:
-            if player_turns <= boss_turns:
-                return cost
-        case False:
-            if boss_turns > player_turns:
-                return cost
-    return None
+    if player_win and player_turns <= boss_turns or not player_win and boss_turns < player_turns:
+        return cost
+    else:
+        return None
+    # match player_win:
+    #     case True:
+    #         if player_turns <= boss_turns:
+    #             return cost
+    #     case False:
+    #         if boss_turns < player_turns:
+    #             return cost
+    # return None
 
 
 def process_combos(
-        item_stat_combos, boss_entity, player_win=True, check_min_cost=True):
+        item_stat_combos, boss_entity, player_win=True):
     """
-    Determines the min or max cost encountered for the playuer to win or list
+    Determines the min or max cost encountered for the playuer to win or lose
+    the fight with the boss.
     """
     target_cost = None
     for combo in item_stat_combos:
-        cost = determine_combo_cost(
-                combo, boss_entity, player_win)
+        cost = determine_combo_cost(combo, boss_entity, player_win)
         if cost is None:
             continue
         if target_cost is None:
             target_cost = cost
-        elif check_min_cost and cost < target_cost:
+        elif player_win and cost < target_cost:
             target_cost = cost
-        elif not check_min_cost and cost > target_cost:
+        elif not player_win and cost > target_cost:
             target_cost = cost
     return target_cost
 
