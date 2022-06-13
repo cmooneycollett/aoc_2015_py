@@ -62,6 +62,10 @@ def solve_part1(input):
 
 
 def solve_part2(input):
+    """
+    Determines the maximum cost of items the player can purchase and still lose
+    the boss fight.
+    """
     boss_entity = input
     item_stat_combos = determine_item_combinations()
     min_cost = process_combos(item_stat_combos, boss_entity, False)
@@ -131,10 +135,10 @@ def determine_item_combinations():
         w_a_2r_combos + w_0a_2r_combos
 
 
-def determine_combo_cost(
-        item_stat_combo, boss_entity, player_win=True):
+def determine_combo_cost(item_stat_combo, boss_entity, player_win):
     """
-    Determines the cost of the combo if it the player win condition is met. Otherwise returns None.
+    Returns a tuple containing the outcome of the player/boss fight and the cost
+    of the items in the item combo.
     """
     cost = 0
     player_entity = Entity(100, 0, 0)
@@ -144,30 +148,23 @@ def determine_combo_cost(
         player_entity.armour += item_stat.armour
     player_turns = player_entity.calculate_turns_to_defeat(boss_entity)
     boss_turns = boss_entity.calculate_turns_to_defeat(player_entity)
-    if player_win and player_turns <= boss_turns or not player_win and boss_turns < player_turns:
-        return cost
+    if player_win and player_turns <= boss_turns or \
+            not player_win and boss_turns < player_turns:
+        return (True, cost)
     else:
-        return None
-    # match player_win:
-    #     case True:
-    #         if player_turns <= boss_turns:
-    #             return cost
-    #     case False:
-    #         if boss_turns < player_turns:
-    #             return cost
-    # return None
+        return (False, cost)
 
 
-def process_combos(
-        item_stat_combos, boss_entity, player_win=True):
+def process_combos(item_stat_combos, boss_entity, player_win):
     """
     Determines the min or max cost encountered for the playuer to win or lose
     the fight with the boss.
     """
     target_cost = None
     for combo in item_stat_combos:
-        cost = determine_combo_cost(combo, boss_entity, player_win)
-        if cost is None:
+        (desired_outcome, cost) = determine_combo_cost(
+            combo, boss_entity, player_win)
+        if not desired_outcome:
             continue
         if target_cost is None:
             target_cost = cost
