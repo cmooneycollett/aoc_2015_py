@@ -33,7 +33,7 @@ def process_input_file():
             line_data = (int(match_r.group(1)), int(match_r.group(2)),
                          int(match_r.group(3)))
             data.append(line_data)
-    return data
+        return data
 
 
 def solve_part1(input_p):
