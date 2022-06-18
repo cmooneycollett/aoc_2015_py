@@ -21,3 +21,4 @@ import solutions.day_20
 import solutions.day_21
 import solutions.day_22
 import solutions.day_23
+import solutions.day_24
