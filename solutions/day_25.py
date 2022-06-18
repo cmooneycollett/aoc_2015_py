@@ -37,6 +37,9 @@ def solve_part1(input):
 
 
 def solve_part2(input):
+    """
+    No solution required - Christmas has been saved!
+    """
     ()
 
 
