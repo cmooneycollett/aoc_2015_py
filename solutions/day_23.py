@@ -63,13 +63,23 @@ def process_input_file():
 
 
 def solve_part1(input):
+    """
+    Processes the input instructions with "a" and "b" registers starting with
+    value 0, returning the final value of the "b" register.
+    """
     registers = {"a": 0, "b": 0}  # Registers
     process_instructions(input, registers)
     return registers["b"]
 
 
 def solve_part2(input):
-    ()
+    """
+    Processes the input instructions with "a" register starting at 1 and "b"
+    register starting at 0, returning the final value of the "b" register.
+    """
+    registers = {"a": 1, "b": 0}  # Registers
+    process_instructions(input, registers)
+    return registers["b"]
 
 
 def process_instructions(instructions, registers):
