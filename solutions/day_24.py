@@ -4,8 +4,8 @@ import math
 
 def main():
     input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
+    # p1_solution = solve_part1(input)
+    # print("P1 solution - {}".format(p1_solution))
     p2_solution = solve_part2(input)
     print("P2 solution - {}".format(p2_solution))
 
@@ -27,7 +27,14 @@ def solve_part1(input):
 
 
 def solve_part2(input):
-    ()
+    """
+    Finds the minimum quantum entangement for compartment 1 (passenger
+    compartment) in the optimal arrangement, when dividing the values across
+    four separate compartments with equal sums.
+    """
+    total = sum(input)
+    min_qe = find_min_qe_comp_1(input, total // 4)
+    return min_qe
 
 
 def find_min_qe_comp_1(values, limit):
