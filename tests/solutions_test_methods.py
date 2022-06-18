@@ -144,12 +144,12 @@ class SolutionsTestMethods(unittest.TestCase):
         input = solutions.day_14.process_input_file()
         solution = solutions.day_14.solve_part2(input)
         self.assertEqual(1102, solution)
-    
+
     def test_day_15_p1(self):
         input = solutions.day_15.process_input_file()
         solution = solutions.day_15.solve_part1(input)
         self.assertEqual(13882464, solution)
-    
+
     def test_day_15_p2(self):
         input = solutions.day_15.process_input_file()
         solution = solutions.day_15.solve_part2(input)
@@ -164,7 +164,7 @@ class SolutionsTestMethods(unittest.TestCase):
         input = solutions.day_16.process_input_file()
         solution = solutions.day_16.solve_part2(input)
         self.assertEqual(260, solution)
-    
+
     def test_day_17_p1(self):
         input = solutions.day_17.process_input_file()
         solution = solutions.day_17.solve_part1(input)
@@ -184,22 +184,22 @@ class SolutionsTestMethods(unittest.TestCase):
         input = solutions.day_18.process_input_file()
         solution = solutions.day_18.solve_part2(input)
         self.assertEqual(886, solution)
-    
+
     def test_day_19_p1(self):
         input = solutions.day_19.process_input_file()
         solution = solutions.day_19.solve_part1(input)
         self.assertEqual(518, solution)
-    
+
     def test_day_19_p2(self):
         input = solutions.day_19.process_input_file()
         solution = solutions.day_19.solve_part2(input)
         self.assertEqual(200, solution)
-    
+
     def test_day_20_p1(self):
         input = solutions.day_20.process_input_file()
         solution = solutions.day_20.solve_part1(input)
         self.assertEqual(831600, solution)
-    
+
     def test_day_20_p2(self):
         input = solutions.day_20.process_input_file()
         solution = solutions.day_20.solve_part2(input)
@@ -224,6 +224,11 @@ class SolutionsTestMethods(unittest.TestCase):
         input = solutions.day_22.process_input_file()
         solution = solutions.day_22.solve_part2(input)
         self.assertEqual(1937, solution)
+
+    def test_day_23_p1(self):
+        input = solutions.day_23.process_input_file()
+        solution = solutions.day_23.solve_part1(input)
+        self.assertEqual(307, solution)
 
 
 if __name__ == "__main__":
