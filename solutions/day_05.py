@@ -1,42 +1,63 @@
+"""
+Solutions for AOC 2015 Day 5.
+"""
+
 import re
 
 
 def main():
-    input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
-    p2_solution = solve_part2(input)
-    print("P2 solution - {}".format(p2_solution))
+    """
+    Solve AOC 2015 Day 5 Parts 1 and 2, printing out the results.
+    """
+    input_p = process_input_file()
+    p1_solution = solve_part1(input_p)
+    print(f"P1 solution - {p1_solution}")
+    p2_solution = solve_part2(input_p)
+    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
-    input = []
-    with open("./inputs/day_05.txt") as file:
+    """
+    Processes the AOC 2015 Day 5 input file into the format required by the
+    solver functions.
+    """
+    input_processed = []
+    with open("./inputs/day_05.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
                 continue
-            input.append(line)
-    return input
+            input_processed.append(line)
+    return input_processed
 
 
-def solve_part1(input):
+def solve_part1(input_p):
+    """
+    Checks input strings for "niceness" (using the Part 1 properties specified
+    in problem description), and returns how many of the strings are nice.
+    """
     regex_nice_1 = re.compile(r"^.*([aeiou]).*([aeiou]).*([aeiou]).*$")
     regex_nice_2 = re.compile(r"^.*([a-z])\1.*$")
     regex_bad_1 = re.compile(r"^.*(ab|cd|pq|xy).*$")
     nice_count = 0
-    for s in input:
-        if regex_nice_1.match(s) and regex_nice_2.match(s) and not regex_bad_1.match(s):
+    for string in input_p:
+        if regex_nice_1.match(string) and regex_nice_2.match(string) and \
+                not regex_bad_1.match(string):
             nice_count += 1
     return nice_count
 
 
-def solve_part2(input):
+def solve_part2(input_p):
+    """
+    Checks input strings for "niceness" (using the updated Part 2 properties
+    specified in problem description), and returns how many of the strings are
+    nice.
+    """
     regex_nice_1 = re.compile(r"^.*([a-z][a-z]).*\1.*$")
     regex_nice_2 = re.compile(r"^.*([a-z])[a-z]\1.*$")
     nice_count = 0
-    for s in input:
-        if regex_nice_1.match(s) and regex_nice_2.match(s):
+    for string in input_p:
+        if regex_nice_1.match(string) and regex_nice_2.match(string):
             nice_count += 1
     return nice_count
 
