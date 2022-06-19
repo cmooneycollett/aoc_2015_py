@@ -10,10 +10,10 @@ def main():
     """
     Solves AOC 2015 Day 2 Parts 1 and 2, printing out the solutions.
     """
-    input_p = process_input_file()
-    p1_solution = solve_part1(input_p)
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
     print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_p)
+    p2_solution = solve_part2(input_data)
     print(f"P2 solution - {p2_solution}")
 
 
@@ -23,7 +23,7 @@ def process_input_file():
     """
     with open("./inputs/day_02.txt", encoding="utf-8") as file:
         raw_input = file.read().strip()
-        data = []
+        input_data = []
         regex = re.compile(r"(\d+)x(\d+)x(\d+)")
         for line in raw_input.splitlines():
             line = line.strip()
@@ -32,30 +32,30 @@ def process_input_file():
             match_r = regex.match(line)
             line_data = (int(match_r.group(1)), int(match_r.group(2)),
                          int(match_r.group(3)))
-            data.append(line_data)
-        return data
+            input_data.append(line_data)
+        return input_data
 
 
-def solve_part1(input_p):
+def solve_part1(input_data):
     """
     Calculates the total square feet of wrapping paper required to wrap the
     presents specified in input.
     """
     total_paper = 0  # unit: square feet
-    for data in input_p:
+    for data in input_data:
         side_areas = [data[0] * data[1], data[0] * data[2], data[1] * data[2]]
         slack = min(side_areas)
         total_paper += 2 * sum(side_areas) + slack
     return total_paper
 
 
-def solve_part2(input_p) -> int:
+def solve_part2(input_data):
     """
     Calculates the total length of ribbon in feet required to wrap the presents
     specified in input.
     """
     total_ribbon = 0    # unit: feet
-    for data in input_p:
+    for data in input_data:
         side_perims = [2 * (data[0] + data[1]), 2 *
                        (data[0] + data[2]), 2 * (data[1] + data[2])]
         volume = data[0] * data[1] * data[2]

@@ -9,10 +9,10 @@ def main():
     """
     Solves AOC 2015 Parts 1 and 2, printing out the solutions.
     """
-    input_p = process_input_file()
-    p1_solution = solve_part1(input_p)
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
     print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_p)
+    p2_solution = solve_part2(input_data)
     print(f"P2 solution - {p2_solution}")
 
 
@@ -25,34 +25,34 @@ def process_input_file():
         return file.read().strip()
 
 
-def solve_part1(input_p):
+def solve_part1(input_data):
     """
     Finds the first MD5 hash of input key and sequence number that begins with
     five zeroes, returning the corresponding sequence number.
     """
-    value = 0
+    sequence_num = 0
     while True:
-        prehash = f"{input_p}{value}"
-        hash_result = hashlib.md5(prehash.encode())
+        prehash_string = f"{input_data}{sequence_num}"
+        hash_result = hashlib.md5(prehash_string.encode())
         if hash_result.hexdigest().startswith("00000"):
-            return value
+            return sequence_num
         # Continue to the next sequence number
-        value += 1
+        sequence_num += 1
 
 
-def solve_part2(input_p):
+def solve_part2(input_data):
     """
     Finds the first MD5 hash of the input key and sequence number that begins
     with six zeroes, returning the corresponding sequence number.
     """
-    value = 0
+    sequence_num = 0
     while True:
-        prehash = f"{input_p}{value}"
-        hash_result = hashlib.md5(prehash.encode())
+        prehash_string = f"{input_data}{sequence_num}"
+        hash_result = hashlib.md5(prehash_string.encode())
         if hash_result.hexdigest().startswith("000000"):
-            return value
+            return sequence_num
         # Continue to the next sequence number
-        value += 1
+        sequence_num += 1
 
 
 if __name__ == "__main__":

@@ -25,10 +25,10 @@ def main():
     """
     Solves AOC 2015 Day 7 Parts 1 and 2, printing out the results.
     """
-    input_p = process_input_file()
-    p1_solution = solve_part1(input_p)
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
     print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_p)
+    p2_solution = solve_part2(input_data)
     print(f"P2 solution - {p2_solution}")
 
 
@@ -37,7 +37,7 @@ def process_input_file():
     Processes the AOC 2015 Day 7 input file into the format required by the
     solver functions.
     """
-    input_processed = {}
+    input_data = {}
     regex_op_value = re.compile(r"^([a-z]+|\d+) -> ([a-z]+)$")
     regex_op_and = re.compile(r"^([a-z]+|\d+) AND ([a-z]+|\d+) -> ([a-z]+)$")
     regex_op_lshift = re.compile(
@@ -57,7 +57,7 @@ def process_input_file():
                 output = m_value.group(2)
                 if value.isnumeric():
                     value = int(value)
-                input_processed[output] = (Operation.OP_VALUE, value)
+                input_data[output] = (Operation.OP_VALUE, value)
             elif regex_op_and.match(line):
                 match_and = regex_op_and.match(line)
                 left = match_and.group(1)
@@ -67,7 +67,7 @@ def process_input_file():
                     left = int(left)
                 if right.isnumeric():
                     right = int(right)
-                input_processed[output] = (Operation.OP_AND, left, right)
+                input_data[output] = (Operation.OP_AND, left, right)
             elif regex_op_lshift.match(line):
                 match_lshift = regex_op_lshift.match(line)
                 left = match_lshift.group(1)
@@ -77,14 +77,14 @@ def process_input_file():
                     left = int(left)
                 if right.isnumeric():
                     right = int(right)
-                input_processed[output] = (Operation.OP_LSHIFT, left, right)
+                input_data[output] = (Operation.OP_LSHIFT, left, right)
             elif regex_op_not.match(line):
                 match_not = regex_op_not.match(line)
                 value = match_not.group(1)
                 output = match_not.group(2)
                 if value.isnumeric():
                     value = int(value)
-                input_processed[output] = (Operation.OP_NOT, value)
+                input_data[output] = (Operation.OP_NOT, value)
             elif regex_op_or.match(line):
                 match_or = regex_op_or.match(line)
                 left = match_or.group(1)
@@ -94,7 +94,7 @@ def process_input_file():
                     left = int(left)
                 if right.isnumeric():
                     right = int(right)
-                input_processed[output] = (Operation.OP_OR, left, right)
+                input_data[output] = (Operation.OP_OR, left, right)
             elif regex_op_rshift.match(line):
                 match_rshift = regex_op_rshift.match(line)
                 left = match_rshift.group(1)
@@ -104,21 +104,21 @@ def process_input_file():
                     left = int(left)
                 if right.isnumeric():
                     right = int(right)
-                input_processed[output] = (Operation.OP_RSHIFT, left, right)
-    return input_processed
+                input_data[output] = (Operation.OP_RSHIFT, left, right)
+    return input_data
 
 
-def solve_part1(input_p):
+def solve_part1(input_data):
     """
     Evaluates the inputs to the wire system and returns the resulting value
     provided to wire "a".
     """
     wire_known_values = {}
-    evaluate_wire(input_p, wire_known_values, "a")
+    evaluate_wire(input_data, wire_known_values, "a")
     return wire_known_values["a"]
 
 
-def solve_part2(input_p):
+def solve_part2(input_data):
     """
     Conducts initial pass of wire system evaluation, overrides the "b" wire with
     the "a" wire result, resets the other wires and re-evaluates the wire
@@ -127,9 +127,9 @@ def solve_part2(input_p):
     """
     # Conduct first pass
     wire_known_values = {}
-    evaluate_wire(input_p, wire_known_values, "a")
+    evaluate_wire(input_data, wire_known_values, "a")
     # Override value on "b" wire
-    new_wire_states = copy.deepcopy(input_p)
+    new_wire_states = copy.deepcopy(input_data)
     new_wire_states["b"] = (Operation.OP_VALUE, wire_known_values["a"])
     # Conduct second pass
     wire_known_values = {}

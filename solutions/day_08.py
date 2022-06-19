@@ -10,10 +10,10 @@ def main():
     """
     Solves AOC 2015 Day 8 Parts 1 and 2, printing out the solutions.
     """
-    input_p = process_input_file()
-    p1_solution = solve_part1(input_p)
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
     print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_p)
+    p2_solution = solve_part2(input_data)
     print(f"P2 solution - {p2_solution}")
 
 
@@ -22,17 +22,17 @@ def process_input_file():
     Processes the AOC 2015 Day 8 input file into the format required by the
     solver functions.
     """
-    input_processed = []
+    input_data = []
     with open("./inputs/day_08.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
                 continue
-            input_processed.append(line)
-    return input_processed
+            input_data.append(line)
+    return input_data
 
 
-def solve_part1(input_p):
+def solve_part1(input_data):
     """
     Calculates the difference between the number of characters in the string
     literals (input) and the converted "in-memory" representations of the
@@ -40,7 +40,7 @@ def solve_part1(input_p):
     """
     total_len_str_literal = 0
     total_len_str_inmem = 0
-    for string in input_p:
+    for string in input_data:
         total_len_str_literal += len(string)
         new_string = str(string)
         # Remove open and close double-quote
@@ -54,7 +54,7 @@ def solve_part1(input_p):
     return total_len_str_literal - total_len_str_inmem
 
 
-def solve_part2(input_p):
+def solve_part2(input_data):
     """
     Calculates the difference between the number of characters between the
     newly-encoded strings (using the rules given in the problem description) and
@@ -62,7 +62,7 @@ def solve_part2(input_p):
     """
     total_len_str_literal = 0
     total_len_str_escaped = 0
-    for string in input_p:
+    for string in input_data:
         total_len_str_literal += len(string)
         new_string = str(string)
         # Replace back-slash (also covers hex representations)

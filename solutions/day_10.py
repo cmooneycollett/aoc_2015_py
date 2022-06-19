@@ -7,10 +7,10 @@ def main():
     """
     Solves AOC 2015 Day 10 Parts 1 and 2, printing out the solutions.
     """
-    input_p = process_input_file()
-    p1_solution = solve_part1(input_p)
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
     print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_p)
+    p2_solution = solve_part2(input_data)
     print(f"P2 solution - {p2_solution}")
 
 
@@ -23,23 +23,23 @@ def process_input_file():
         return file.read().strip()
 
 
-def solve_part1(input_p):
+def solve_part1(input_data):
     """
     Applies 40 iterations of the "look-and-say" process to the input string,
     returning the resulting string.
     """
-    result_string = str(input_p)
+    result_string = str(input_data)
     for _ in range(0, 40):
         result_string = apply_looksay_iteration(result_string)
     return len(result_string)
 
 
-def solve_part2(input_p):
+def solve_part2(input_data):
     """
     Applies 50 iterations of the "look-and-say" process to the input string,
     returning the resulting string.
     """
-    result_str = str(input_p)
+    result_str = str(input_data)
     for _ in range(0, 50):
         result_str = apply_looksay_iteration(result_str)
     return len(result_str)
