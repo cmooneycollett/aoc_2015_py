@@ -2,6 +2,7 @@
 Solutions for AOC 2015 Day 12.
 """
 
+
 import json
 import re
 

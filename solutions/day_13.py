@@ -2,6 +2,7 @@
 Solutions for AOC 2015 Day 13.
 """
 
+
 import itertools
 import re
 
