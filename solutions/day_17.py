@@ -1,24 +1,46 @@
+"""
+Solutions for AOC 2015 Day 17.
+"""
+
+
 def main():
-    input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
-    p2_solution = solve_part2(input)
-    print("P2 solution - {}".format(p2_solution))
+    """
+    Solves AOC 2015 Day 17 Parts 1 and 2, printing out the solutions.
+    """
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
+    print(f"P1 solution - {p1_solution}")
+    p2_solution = solve_part2(input_data)
+    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
-    with open("./inputs/day_17.txt") as file:
+    """
+    Processes the AOC 2015 Day 17 input file into the format required by the
+    solver functions. Returned value is a list containing the int values listed
+    in the input file.
+    """
+    with open("./inputs/day_17.txt", encoding="utf-8") as file:
         lines = [line.strip()
                  for line in file.readlines() if len(line.strip()) > 0]
         return [int(n) for n in lines]
 
 
-def solve_part1(input):
-    return sum(count_subsets_adding_to_total(input, 150).values())
+def solve_part1(input_data):
+    """
+    Calculates the total number of ways that the input values can be selected
+    in such a way that the selected values add up to 150.
+    """
+    return sum(count_subsets_adding_to_total(input_data, 150).values())
 
 
-def solve_part2(input):
-    container_counts = count_subsets_adding_to_total(input, 150)
+def solve_part2(input_data):
+    """
+    Calculates the number of ways the input values can be selected in such a way
+    that the selected values add up to 150, and the number of selected values is
+    the minimum possible number.
+    """
+    container_counts = count_subsets_adding_to_total(input_data, 150)
     min_containers = min(container_counts.keys())
     return container_counts[min_containers]
 
@@ -48,10 +70,12 @@ def count_subsets_adding_to_total_recursive(
             container_counts[total_containers] += 1
     elif current_total < sum_total and i < len(values):
         count_subsets_adding_to_total_recursive(values, sum_total, i + 1,
-                current_total + values[i], total_containers + 1,
-                container_counts)
+                                                current_total + values[i],
+                                                total_containers + 1,
+                                                container_counts)
         count_subsets_adding_to_total_recursive(values, sum_total, i + 1,
-                current_total, total_containers, container_counts)
+                                                current_total, total_containers,
+                                                container_counts)
 
 
 if __name__ == "__main__":
