@@ -1,19 +1,33 @@
+"""
+Solutions for AOC 2015 Day 19.
+"""
+
+
 import re
 
 
 def main():
-    input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
-    p2_solution = solve_part2(input)
-    print("P2 solution - {}".format(p2_solution))
+    """
+    Solves AOC 2015 Day 19 Parts 1 and 2, printing out the solutions.
+    """
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
+    print(f"P1 solution - {p1_solution}")
+    p2_solution = solve_part2(input_data)
+    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
+    """
+    Processes the AOC 2015 Day 19 input file into the format required by the
+    solver functions. The returned value is a tuple containing the input
+    molecule string and the map of replacement recipes specified in the input
+    file.
+    """
     replacement_recipes = {}
     input_molecule = ""
     regex_recipe = re.compile(r"^([a-zA-Z]+) => ([a-zA-Z]+)$")
-    with open("./inputs/day_19.txt") as file:
+    with open("./inputs/day_19.txt", encoding="utf-8") as file:
         recipes_phase = True
         for line in file.readlines():
             line = line.strip()
@@ -21,9 +35,9 @@ def process_input_file():
                 recipes_phase = not recipes_phase
                 continue
             if recipes_phase:   # Extract replacement recipes
-                m = regex_recipe.match(line)
-                find = m.group(1)
-                replace = m.group(2)
+                match_replacement = regex_recipe.match(line)
+                find = match_replacement.group(1)
+                replace = match_replacement.group(2)
                 if find not in replacement_recipes:
                     replacement_recipes[find] = []
                 replacement_recipes[find].append(replace)
@@ -32,14 +46,14 @@ def process_input_file():
     return (input_molecule, replacement_recipes)
 
 
-def solve_part1(input):
+def solve_part1(input_data):
     """
     Determines the number of unique molecules that can be created by conducting
     all possible replacements on the input molecule.
     """
     unique_outputs = set()
-    input_molecule = input[0]
-    replacement_recipes = input[1]
+    input_molecule = input_data[0]
+    replacement_recipes = input_data[1]
     for (find, replacements) in replacement_recipes.items():
         count = len(re.findall(find, input_molecule))
         for replace in replacements:
@@ -56,13 +70,13 @@ def solve_part1(input):
     return len(unique_outputs)
 
 
-def solve_part2(input):
+def solve_part2(input_data):
     """
     Determines the fewest replacement steps required to build the input medicine
     molecule from a single electron "e".
     """
-    molecule = str(input[0])
-    reverse_replacements = reverse_replacement_recipes(input[1])
+    molecule = str(input_data[0])
+    reverse_replacements = reverse_replacement_recipes(input_data[1])
     total_steps = 0
     while True:
         # Check if we have reached the fully reduced molecule
@@ -70,7 +84,7 @@ def solve_part2(input):
             break
         # Find longest string that can be reverse-replaced
         from_str = ""
-        for target_str in reverse_replacements.keys():
+        for target_str in reverse_replacements:
             # Tie-broken by first target string given in problem input file
             if target_str in molecule and len(target_str) > len(from_str):
                 from_str = target_str
