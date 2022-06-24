@@ -1,4 +1,5 @@
-"""Solution code for AOC 2015 Day 11.
+"""
+Solution code for AOC 2015 Day 11.
 """
 
 
@@ -6,14 +7,45 @@ import re
 
 
 def main():
-    input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
-    p2_solution = solve_part2(input)
-    print("P2 solution - {}".format(p2_solution))
+    """
+    Solves AOC 2015 Day 11 Parts 1 and 2, printing out the solution.
+    """
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
+    print(f"P1 solution - {p1_solution}")
+    p2_solution = solve_part2(input_data)
+    print(f"P2 solution - {p2_solution}")
+
+
+def process_input_file():
+    """
+    Processes the AOC 2015 Day 11 input file into the format required by the
+    solver functions.
+    """
+    with open("./inputs/day_11.txt", encoding="utf-8") as file:
+        return file.read().strip()
+
+
+def solve_part1(input_data):
+    """
+    Finds the next valid password after the given initial password.
+    """
+    return find_next_valid_password(input_data)
+
+
+def solve_part2(input_data):
+    """
+    Find the second next valid password after the given initial password.
+    """
+    first_pass = find_next_valid_password(input_data)
+    return find_next_valid_password(first_pass)
 
 
 def increment_string(input_chars):
+    """
+    Increments the input characters by one place, going from right-to-left
+    through 'a' to 'z'.
+    """
     output_chars = input_chars.copy()
     i = len(output_chars) - 1
     while True:
@@ -29,23 +61,12 @@ def increment_string(input_chars):
     return output_chars
 
 
-def process_input_file():
-    with open("./inputs/day_11.txt") as file:
-        return file.read().strip()
-
-
-def solve_part1(input):
-    """Find the next valid password after the given initial password."""
-    return find_next_valid_password(input)
-
-
-def solve_part2(input):
-    """Find the second next valid password after the given initial password."""
-    first_pass = find_next_valid_password(input)
-    return find_next_valid_password(first_pass)
-
-
 def find_next_valid_password(input_password):
+    """
+    Takes the input password and continues to increment the string characters
+    right-to-left through 'a' to 'z' until the next valid password is found
+    matching the rules given in the problem description.
+    """
     regex_triple_char = re.compile(
         r"(abc|bcd|cde|def|efg|fgh|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz)")
     regex_pairs = re.compile(r"([a-z])\1.*([a-z])\2")
@@ -57,8 +78,9 @@ def find_next_valid_password(input_password):
         new_password_chars = increment_string(new_password_chars)
         # Perform validity checks
         new_password_joined = "".join(new_password_chars)
-        m = regex_pairs.search(new_password_joined)
-        if m is None or len(m.groups()) < 2 or m.group(1) == m.group(2):
+        match_pairs = regex_pairs.search(new_password_joined)
+        if match_pairs is None or len(match_pairs.groups()) < 2 or \
+                match_pairs.group(1) == match_pairs.group(2):
             continue
         if regex_bad_letters.search(new_password_joined):
             continue
