@@ -1,38 +1,49 @@
+"""
+Solutions for AOC 2015 Day 12.
+"""
+
 import json
 import re
 
 
 def main():
-    input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
-    p2_solution = solve_part2(input)
-    print("P2 solution - {}".format(p2_solution))
+    """
+    Solves AOC 2015 Day 12 Parts 1 and 2, printing out the solutions.
+    """
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
+    print(f"P1 solution - {p1_solution}")
+    p2_solution = solve_part2(input_data)
+    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
-    """Processes contents of problem input file into form (string) ready for analysis by solvers."""
-    with open("./inputs/day_12.txt") as file:
+    """
+    Processes the AOC 2015 Day 12 input file into the format required by the
+    solver functions.
+    """
+    with open("./inputs/day_12.txt", encoding="utf-8") as file:
         return file.read().strip()
 
 
-def solve_part1(input):
-    """Calculates the total of all numbers discovered in the json data serialised in input."""
-    numbers_raw = re.findall(r"-?\d+", input)
-    numbers = [int(n) for n in numbers_raw]
-    total = 0
-    for n in numbers:
-        total += n
-    return total
-
-
-def solve_part2(input):
+def solve_part1(input_data):
     """
-    Calculates the total of all valid numbers (not within a json object containing a value of
-    \"red\") discovered in the json data serialised in input.
+    Calculates the total of all numbers discovered in the json data serialised
+    in input.
+    """
+    # Extract all numbers from the input json string.
+    numbers_raw = re.findall(r"-?\d+", input_data)
+    return sum(int(n) for n in numbers_raw)
+
+
+def solve_part2(input_data):
+    """
+    Calculates the total of all valid numbers (not within a json object
+    containing a value of \"red\") discovered in the json data serialised in
+    input.
     """
     numbers_valid = []
-    json_data = json.loads(input)
+    json_data = json.loads(input_data)
     # Discover all valid numbers within the json data
     discover_valid_numbers(numbers_valid, json_data)
     # Return the total of all valid numbers
@@ -41,29 +52,29 @@ def solve_part2(input):
 
 def discover_valid_numbers(numbers_valid, obj):
     """
-    Find all valid numbers (i.e. not within a python dict (json object) containing a value of
-    \"red\") by recursively inspecting each object and value discovered. String values are ignored
-    because they do not contain valid numbers, other values or data structures with their own
-    values.
+    Find all valid numbers (i.e. not within a python dict (json object)
+    containing a value of \"red\") by recursively inspecting each object and
+    value discovered. String values are ignored because they do not contain
+    valid numbers, other values or data structures with their own values.
     """
     # Handle cases for int, list and dict - str values are ignored
     if isinstance(obj, int):
         numbers_valid.append(obj)
     elif isinstance(obj, list):
-        for x in obj:
-            if isinstance(x, int):
-                numbers_valid.append(x)
-            elif isinstance(x, list) or isinstance(x, dict):
-                discover_valid_numbers(numbers_valid, x)
+        for sub_obj in obj:
+            if isinstance(sub_obj, int):
+                numbers_valid.append(sub_obj)
+            elif isinstance(sub_obj, list) or isinstance(sub_obj, dict):
+                discover_valid_numbers(numbers_valid, sub_obj)
     elif isinstance(obj, dict):
         # Check for invalid object
         if "red" in obj.values():
             return
-        for x in obj.values():
-            if isinstance(x, int):
-                numbers_valid.append(x)
-            elif isinstance(x, list) or isinstance(x, dict):
-                discover_valid_numbers(numbers_valid, x)
+        for sub_obj in obj.values():
+            if isinstance(sub_obj, int):
+                numbers_valid.append(sub_obj)
+            elif isinstance(sub_obj, list) or isinstance(sub_obj, dict):
+                discover_valid_numbers(numbers_valid, sub_obj)
 
 
 if __name__ == "__main__":
