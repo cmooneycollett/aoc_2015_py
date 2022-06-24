@@ -1,59 +1,72 @@
+"""
+Solutions for AOC 2015 Day 16.
+"""
+
+
 import re
 
 
 def main():
-    input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
-    p2_solution = solve_part2(input)
-    print("P2 solution - {}".format(p2_solution))
+    """
+    Solves AOC 2015 Day 16 Parts 1 and 2, printing out the solutions.
+    """
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
+    print(f"P1 solution - {p1_solution}")
+    p2_solution = solve_part2(input_data)
+    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
-    input = []
+    """
+    Processes the AOC 2015 Day 16 input file into the format required by the
+    solver functions. The
+    """
+    input_data = {}
     regex_sue = re.compile(
         r"^Sue (\d+): "
         r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+), "
         r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+), "
         r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+)$")
-    with open("./inputs/day_16.txt") as file:
+    with open("./inputs/day_16.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
                 continue
-            m = regex_sue.match(line)
-            field_1 = m.group(2)
-            field_1_val = int(m.group(3))
-            field_2 = m.group(4)
-            field_2_val = int(m.group(5))
-            field_3 = m.group(6)
-            field_3_val = int(m.group(7))
-            input.append(
-                {field_1: field_1_val, field_2: field_2_val, field_3: field_3_val})
-    return input
+            match_sue_info = regex_sue.match(line)
+            sue_number = int(match_sue_info.group(1))
+            field1_name = match_sue_info.group(2)
+            field1_value = int(match_sue_info.group(3))
+            field2_name = match_sue_info.group(4)
+            field2_value = int(match_sue_info.group(5))
+            field3_name = match_sue_info.group(6)
+            field3_value = int(match_sue_info.group(7))
+            input_data[sue_number] = {field1_name: field1_value,
+                                      field2_name: field2_value,
+                                      field3_name: field3_value}
+    return input_data
 
 
-def solve_part1(input):
+def solve_part1(input_data):
     """
     Determines which is the real Aunt Sue by matching observations against the
-    output information from the MFCSAM.
+    output information from the My First Crime Scene Analysis Machine (MFCSAM).
     """
     sue_details = {"children": 3, "cats": 7, "samoyeds": 2, "pomeranians": 3,
-                   "akitas": 0, "vizslas": 0, "goldfish": 5, "trees": 3, "cars": 2, "perfumes": 1}
-    sue_candidate_indices = []
-    for i in range(0, len(input)):
-        sue = input[i]
+                   "akitas": 0, "vizslas": 0, "goldfish": 5, "trees": 3,
+                   "cars": 2, "perfumes": 1}
+    for (candidate_number, candidate_details) in input_data.items():
         is_candidate = True
-        for (field, val) in sue.items():
-            if val != sue_details[field]:
+        for (name, value) in candidate_details.items():
+            if value != sue_details[name]:
                 is_candidate = False
                 break
         if is_candidate:
-            sue_candidate_indices.append(i + 1)
-    return sue_candidate_indices[0]
+            return candidate_number
+    return -1
 
 
-def solve_part2(input):
+def solve_part2(input_data):
     """
     Determines which is the real Aunt Sue by matching observations against the
     output information from the MFCSAM, taking into account the greater than
@@ -61,28 +74,27 @@ def solve_part2(input):
     and "goldfish".
     """
     sue_details = {"children": 3, "cats": 7, "samoyeds": 2, "pomeranians": 3,
-                   "akitas": 0, "vizslas": 0, "goldfish": 5, "trees": 3, "cars": 2, "perfumes": 1}
-    sue_candidate_indices = []
-    for i in range(0, len(input)):
-        sue = input[i]
+                   "akitas": 0, "vizslas": 0, "goldfish": 5, "trees": 3,
+                   "cars": 2, "perfumes": 1}
+    for (candidate_number, candidate_details) in input_data.items():
         is_candidate = True
-        for (field, val) in sue.items():
-            match field:
-                case "children": is_candidate = (val == sue_details[field])
-                case "cats": is_candidate = (val > sue_details[field])
-                case "samoyeds": is_candidate = (val == sue_details[field])
-                case "pomeranians": is_candidate = (val < sue_details[field])
-                case "akitas": is_candidate = (val == sue_details[field])
-                case "vizslas": is_candidate = (val == sue_details[field])
-                case "goldfish": is_candidate = (val < sue_details[field])
-                case "trees": is_candidate = (val > sue_details[field])
-                case "cars": is_candidate = (val == sue_details[field])
-                case "perfumes": is_candidate = (val == sue_details[field])
+        for (name, value) in candidate_details.items():
+            match name:
+                case "children": is_candidate = (value == sue_details[name])
+                case "cats": is_candidate = (value > sue_details[name])
+                case "samoyeds": is_candidate = (value == sue_details[name])
+                case "pomeranians": is_candidate = (value < sue_details[name])
+                case "akitas": is_candidate = (value == sue_details[name])
+                case "vizslas": is_candidate = (value == sue_details[name])
+                case "goldfish": is_candidate = (value < sue_details[name])
+                case "trees": is_candidate = (value > sue_details[name])
+                case "cars": is_candidate = (value == sue_details[name])
+                case "perfumes": is_candidate = (value == sue_details[name])
             if not is_candidate:
                 break
         if is_candidate:
-            sue_candidate_indices.append(i + 1)
-    return sue_candidate_indices[0]
+            return candidate_number
+    return -1
 
 
 if __name__ == "__main__":
