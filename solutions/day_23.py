@@ -1,9 +1,18 @@
+"""
+Solutions for AOC 2015 Day 23.
+"""
+
+
 from enum import Enum, auto, unique
 import re
 
 
 @unique
 class Instruction(Enum):
+    """
+    Represents the different instructions that can be executed by Little Jane
+    Marie's computer.
+    """
     HALF = auto()
     TRIPLE = auto()
     INCREMENT = auto()
@@ -13,14 +22,22 @@ class Instruction(Enum):
 
 
 def main():
-    input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
-    p2_solution = solve_part2(input)
-    print("P2 solution - {}".format(p2_solution))
+    """
+    Solves AOC 2015 Day 23 Parts 1 and 2, printing out the solutions.
+    """
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
+    print(f"P1 solution - {p1_solution}")
+    p2_solution = solve_part2(input_data)
+    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
+    """
+    Processes the AOC 2015 Day 23 input file into the format required by the
+    solver functions. Returned value is a list containing the Instructions
+    specified in the input file.
+    """
     instructions = []
     regex_half = re.compile(r"hlf (a|b)")
     regex_triple = re.compile(r"tpl (a|b)")
@@ -28,57 +45,58 @@ def process_input_file():
     regex_jump = re.compile(r"jmp ([-+]\d+)")
     regex_jump_if_even = re.compile(r"jie (a|b), ([-+]\d+)")
     regex_jump_if_one = re.compile(r"jio (a|b), ([-+]\d+)")
-    with open("./inputs/day_23.txt") as file:
+    with open("./inputs/day_23.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
                 continue
             if regex_half.match(line):
-                m = regex_half.match(line)
-                instruct = (Instruction.HALF, m.group(1))
+                match_half = regex_half.match(line)
+                instruct = (Instruction.HALF, match_half.group(1))
                 instructions.append(instruct)
             elif regex_triple.match(line):
-                m = regex_triple.match(line)
-                instruct = (Instruction.TRIPLE, m.group(1))
+                match_triple = regex_triple.match(line)
+                instruct = (Instruction.TRIPLE, match_triple.group(1))
                 instructions.append(instruct)
             elif regex_increment.match(line):
-                m = regex_increment.match(line)
-                instruct = (Instruction.INCREMENT, m.group(1))
+                match_increment = regex_increment.match(line)
+                instruct = (Instruction.INCREMENT, match_increment.group(1))
                 instructions.append(instruct)
             elif regex_jump.match(line):
-                m = regex_jump.match(line)
-                instruct = (Instruction.JUMP, int(m.group(1)))
+                match_jump = regex_jump.match(line)
+                instruct = (Instruction.JUMP, int(match_jump.group(1)))
                 instructions.append(instruct)
             elif regex_jump_if_even.match(line):
-                m = regex_jump_if_even.match(line)
+                match_jump_if_even = regex_jump_if_even.match(line)
                 instruct = (Instruction.JUMP_IF_EVEN,
-                            m.group(1), int(m.group(2)))
+                            match_jump_if_even.group(1),
+                            int(match_jump_if_even.group(2)))
                 instructions.append(instruct)
             elif regex_jump_if_one.match(line):
-                m = regex_jump_if_one.match(line)
-                instruct = (Instruction.JUMP_IF_ONE,
-                            m.group(1), int(m.group(2)))
+                match_jump_if_one = regex_jump_if_one.match(line)
+                instruct = (Instruction.JUMP_IF_ONE, match_jump_if_one.group(1),
+                            int(match_jump_if_one.group(2)))
                 instructions.append(instruct)
     return instructions
 
 
-def solve_part1(input):
+def solve_part1(input_data):
     """
     Processes the input instructions with "a" and "b" registers starting with
     value 0, returning the final value of the "b" register.
     """
     registers = {"a": 0, "b": 0}  # Registers
-    process_instructions(input, registers)
+    process_instructions(input_data, registers)
     return registers["b"]
 
 
-def solve_part2(input):
+def solve_part2(input_data):
     """
     Processes the input instructions with "a" register starting at 1 and "b"
     register starting at 0, returning the final value of the "b" register.
     """
     registers = {"a": 1, "b": 0}  # Registers
-    process_instructions(input, registers)
+    process_instructions(input_data, registers)
     return registers["b"]
 
 
@@ -86,32 +104,32 @@ def process_instructions(instructions, registers):
     """
     Executes the given instructions and updates the values of the registers.
     """
-    pc = 0
+    program_counter = 0
     while True:
-        if pc < 0 or pc >= len(instructions):
+        if program_counter < 0 or program_counter >= len(instructions):
             break
-        match instructions[pc][0]:
+        match instructions[program_counter][0]:
             case Instruction.HALF:
-                registers[instructions[pc][1]] /= 2
-                pc += 1
+                registers[instructions[program_counter][1]] /= 2
+                program_counter += 1
             case Instruction.TRIPLE:
-                registers[instructions[pc][1]] *= 3
-                pc += 1
+                registers[instructions[program_counter][1]] *= 3
+                program_counter += 1
             case Instruction.INCREMENT:
-                registers[instructions[pc][1]] += 1
-                pc += 1
+                registers[instructions[program_counter][1]] += 1
+                program_counter += 1
             case Instruction.JUMP:
-                pc += instructions[pc][1]
+                program_counter += instructions[program_counter][1]
             case Instruction.JUMP_IF_EVEN:
-                if registers[instructions[pc][1]] % 2 == 0:
-                    pc += instructions[pc][2]
+                if registers[instructions[program_counter][1]] % 2 == 0:
+                    program_counter += instructions[program_counter][2]
                 else:
-                    pc += 1
+                    program_counter += 1
             case Instruction.JUMP_IF_ONE:
-                if registers[instructions[pc][1]] == 1:
-                    pc += instructions[pc][2]
+                if registers[instructions[program_counter][1]] == 1:
+                    program_counter += instructions[program_counter][2]
                 else:
-                    pc += 1
+                    program_counter += 1
 
 
 if __name__ == "__main__":
