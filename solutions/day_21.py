@@ -1,22 +1,37 @@
+"""
+Solutions for AOC 2015 Day 21.
+"""
+
 from dataclasses import dataclass
 import itertools
 import math
 
 
 class Entity:
-    def __init__(self, hp, damage, armour):
-        self.hp = hp
+    """
+    Represents an entity within the game combat system, that can take and deal
+    damage.
+    """
+
+    def __init__(self, health, damage, armour):
+        self.health = health
         self.damage = damage
         self.armour = armour
 
     def is_dead(self):
-        return self.hp <= 0
+        """
+        Checks if the Entity is dead.
+        """
+        return self.health <= 0
 
     def calculate_turns_to_defeat(self, other):
+        """
+        Calculates the number of turns it would take to defeat the other Entity,
+        by dealing damage each turn and assuming self does not die before the
+        end.
+        """
         # Calculate damage per turn
-        damage_per_turn = self.damage - other.armour
-        if damage_per_turn < 1:
-            damage_per_turn = 1
+        damage_per_turn = max(self.damage - other.armour, 1)
         # Calculate turns required to defeat the other entity
         turns = int(math.ceil(other.hp / damage_per_turn))
         return turns
@@ -24,21 +39,33 @@ class Entity:
 
 @dataclass
 class ItemStats:
+    """
+    Represents the basic details for an item, being cost, damage and armour
+    ratings.
+    """
     cost: int
     damage: int
     armour: int
 
 
 def main():
-    input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
-    p2_solution = solve_part2(input)
-    print("P2 solution - {}".format(p2_solution))
+    """
+    Solves AOC 2015 Day 21 Parts 1 and 2, printing of the solutions.
+    """
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
+    print(f"P1 solution - {p1_solution}")
+    p2_solution = solve_part2(input_data)
+    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
-    with open("./inputs/day_21.txt") as file:
+    """
+    Processes the AOC 2015 Day 21 input file into the format required by the
+    solver functions. Returned data structure is a boss Entity with the specs
+    detailed in the input file.
+    """
+    with open("./inputs/day_21.txt", encoding="utf-8") as file:
         stats = []
         for line in file.readlines():
             line = line.strip()
@@ -50,23 +77,23 @@ def process_input_file():
         return boss_entity
 
 
-def solve_part1(input):
+def solve_part1(input_data):
     """
     Determines the minimum cost of items the player can purchase and still
     defeat the boss.
     """
-    boss_entity = input
+    boss_entity = input_data
     item_stat_combos = determine_item_combinations()
     min_cost = process_combos(item_stat_combos, boss_entity, True)
     return min_cost
 
 
-def solve_part2(input):
+def solve_part2(input_data):
     """
     Determines the maximum cost of items the player can purchase and still lose
     the boss fight.
     """
-    boss_entity = input
+    boss_entity = input_data
     item_stat_combos = determine_item_combinations()
     min_cost = process_combos(item_stat_combos, boss_entity, False)
     return min_cost
@@ -151,8 +178,7 @@ def determine_combo_cost(item_stat_combo, boss_entity, player_win):
     if player_win and player_turns <= boss_turns or \
             not player_win and boss_turns < player_turns:
         return (True, cost)
-    else:
-        return (False, cost)
+    return (False, cost)
 
 
 def process_combos(item_stat_combos, boss_entity, player_win):
