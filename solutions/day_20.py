@@ -1,21 +1,35 @@
-import math
+"""
+Solutions for AOC 2015 Day 20.
+"""
 
 
 def main():
-    input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
-    p2_solution = solve_part2(input)
-    print("P2 solution - {}".format(p2_solution))
+    """
+    Solves AOC 2015 Day 20 Parts 1 and 2, printing out the solutions.
+    """
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
+    print(f"P1 solution - {p1_solution}")
+    p2_solution = solve_part2(input_data)
+    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
-    with open("./inputs/day_20.txt") as file:
+    """
+    Processes the AOC 2015 Day 20 input file into the format required by the
+    solver functions. Returned value is the single integer value given in the
+    input file.
+    """
+    with open("./inputs/day_20.txt", encoding="utf-8") as file:
         return int(file.read().strip())
 
 
-def solve_part1(input):
-    target = input
+def solve_part1(input_data):
+    """
+    Determines the lowest house number to receive at least as many presents as
+    the input value, with each elf visiting an infinite number of houses.
+    """
+    target = input_data
     presents_arr = [0 for _i in range(0, target)]   # presents per house
     house_target = -1
     for elf in range(1, target + 1):
@@ -28,22 +42,26 @@ def solve_part1(input):
     return house_target
 
 
-def solve_part2(input):
-    target = input
+def solve_part2(input_data):
+    """
+    Determines the lowest house number to receive at least as many presents as
+    the input value, with each elf visiting 50 houses (including their starting
+    house).
+    """
+    target = input_data
     presets_record = {}
     elf = 1
     while True:
         # Elf only visits its first 50 houses
         for mult in range(1, 51):
-            if (elf * mult) in presets_record:
+            if elf * mult in presets_record:
                 presets_record[elf * mult] += elf * 11
             else:
                 presets_record[elf * mult] = elf * 11
         # Check if present target has been reached
         if presets_record[elf] >= target:
             break
-        else:
-            elf += 1
+        elf += 1
     return elf
 
 
