@@ -1,16 +1,26 @@
+"""
+Solutions for AOC 2015 Day 22.
+"""
+
+
 from copy import deepcopy
 from enum import Enum, auto, unique
 
 
 @unique
 class Spell(Enum):
+    """
+    Represents the different spells that the player is able to cast, with some
+    of the spells setting multi-turn effects on the player.
+    """
+
     MAGIC_MISSILE = auto()
     DRAIN = auto()
     SHIELD = auto()
     POISON = auto()
     RECHARGE = auto()
 
-    def get_mana_cost(self):
+    def mana(self):
         """
         Gets the mana cost required to cast the spell.
         """
@@ -56,11 +66,11 @@ class Entity:
     Represents a basic entity that has HP, armour and can deal damage.
     """
 
-    def __init__(self, hp, damage, armour):
+    def __init__(self, health, damage, armour):
         """
         Creates a new Entity initialised with the given values.
         """
-        self.hp = hp
+        self.health = health
         self.damage = damage
         self.armour = armour
 
@@ -76,19 +86,19 @@ class Entity:
             damage_to_deal -= self.armour
         if damage_to_deal < 1:
             damage_to_deal = 1
-        self.hp -= damage_to_deal
+        self.health -= damage_to_deal
 
-    def heal(self, hp):
+    def heal(self, health):
         """
         Increases the HP of the Entity by the given amount.
         """
-        self.hp += hp
+        self.health += health
 
     def is_dead(self):
         """
         Checks if the Entity is dead due to having no more HP left.
         """
-        return self.hp <= 0
+        return self.health <= 0
 
 
 class Player(Entity):
@@ -97,18 +107,16 @@ class Player(Entity):
     spells.
     """
 
-    def __init__(self, hp, mana):
+    def __init__(self, health, mana):
         """
         Creates a new Player with the given HP and mana as starting values.
         Damage rating and armour are set to 0, since a Player deals damage and
         modifies their armour rating through magic spells.
         """
-        self.hp = hp
-        self.damage = 0  # Damage is dealt by player via spells
+        Entity.__init__(self, health, 0, 0)
         self.active_effects = {}   # Track active effect and remaining turns
         self.mana = mana
         self.total_mana_spent = 0   # Track total mana expended by player
-        self.armour = 0  # Player armour rating can be modified by spells
 
     def can_cast_with_mana(self, spell):
         """
@@ -153,7 +161,7 @@ class Player(Entity):
         counters and removing any effects that expire (turn counter becomes 0).
         """
         effects_to_remove = []
-        for effect in self.active_effects.keys():
+        for effect in self.active_effects:
             # Reduce effect turns remaining by 1
             self.active_effects[effect] -= 1
             match effect:
@@ -175,51 +183,51 @@ class Player(Entity):
 
 def main():
     """
-    Parses Day 22 problem input, and runs Part 1 and Part 2 solvers to display
-    solutions.
+    Solves AOC 2015 Day 22 Parts 1 and 2, printing out the solutions.
     """
-    input = process_input_file()
-    p1_solution = solve_part1(input)
-    print("P1 solution - {}".format(p1_solution))
-    p2_solution = solve_part2(input)
-    print("P2 solution - {}".format(p2_solution))
+    input_data = process_input_file()
+    p1_solution = solve_part1(input_data)
+    print(f"P1 solution - {p1_solution}")
+    p2_solution = solve_part2(input_data)
+    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
     """
-    Parses the problem input file and returns an Entity with the values
-    specified in the input file.
+    Processes the AOC 2015 Day 22 input file into the input required by the
+    solver functions. Returned data structure is a boss Entity with the specs
+    given in the input file.
     """
-    with open("./inputs/day_22.txt") as file:
+    with open("./inputs/day_22.txt", encoding="utf-8") as file:
         enemy_stats = {}
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
                 continue
-            sep = line.split(": ")
-            enemy_stats[sep[0]] = int(sep[1])
+            stat_split = line.split(": ")
+            enemy_stats[stat_split[0]] = int(stat_split[1])
         return Entity(enemy_stats["Hit Points"], enemy_stats["Damage"], 0)
 
 
-def solve_part1(input):
+def solve_part1(input_data):
     """
     Conducts a fight between the player and the boss, returning the least amount
     of mana the player needs to spend to beat the boss.
     """
-    boss = deepcopy(input)
+    boss = deepcopy(input_data)
     player = Player(50, 500)
     least_mana_for_win = conduct_fight(player, boss, False)
     return least_mana_for_win
 
 
-def solve_part2(input):
+def solve_part2(input_data):
     """
     Conducts a fight between the player and the boss in hard mode (player loses
     1 HP at start of each of their turns before any effects are processed),
     returning the least amount of mana the player needs to spend to beat the
     boss.
     """
-    boss = deepcopy(input)
+    boss = deepcopy(input_data)
     player = Player(50, 500)
     least_mana_for_win = conduct_fight(player, boss, True)
     return least_mana_for_win
@@ -249,13 +257,13 @@ def conduct_fight_recursive(player, boss, min_mana, hard_mode):
         new_player = deepcopy(player)
         new_boss = deepcopy(boss)
         # Player turn
-        # - If in hard mode, apply damage to player before other effects
+        # If in hard mode, apply damage to player before other effects
         if hard_mode:
             new_player.deal_damage(1, True)
-        # - Check if player is dead
+        # Check if player is dead
         if new_player.is_dead():    # Player loses
             return
-        # - Process player effects and check if boss is dead
+        # Process player effects and check if boss is dead
         new_player.process_effects(new_boss)
         if new_boss.is_dead():  # Player wins
             if len(min_mana) == 0:
@@ -263,7 +271,7 @@ def conduct_fight_recursive(player, boss, min_mana, hard_mode):
             elif min_mana[0] > new_player.total_mana_spent:
                 min_mana[0] = new_player.total_mana_spent
             return
-        # - Cast spell - player loses if they do not have enough mana to cast a spell
+        # Player loses if they do not have enough mana to cast a spell
         can_cast = new_player.can_cast_with_mana(spell)
         if not can_cast:    # Player loses
             return
