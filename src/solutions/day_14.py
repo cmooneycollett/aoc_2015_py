@@ -72,17 +72,6 @@ class Reindeer:
         return distance_travelled
 
 
-def main():
-    """
-    Solves AOC 2015 Day 14 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 14 input file into the format required by the
@@ -92,7 +81,7 @@ def process_input_file():
     regex_reindeer = re.compile(
         r"^([A-Z][a-z]+) can fly (\d+) km/s for (\d+) seconds, but then must "
         r"rest for (\d+) seconds.$")
-    with open("./inputs/day_14.txt", encoding="utf-8") as file:
+    with open("./input/day_14.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
@@ -148,7 +137,3 @@ def solve_part2(input_data):
         for reindeer_name in lead_reindeers:
             points[reindeer_name] += 1
     return max(points.values())
-
-
-if __name__ == "__main__":
-    main()

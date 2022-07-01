@@ -2,19 +2,9 @@
 Solutions for AOC 2015 Day 9.
 """
 
+
 import itertools
 import re
-
-
-def main():
-    """
-    Solves AOC 2015 Day 9 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
@@ -24,7 +14,7 @@ def process_input_file():
     """
     input_data = {}
     regex_line = re.compile(r"^([a-zA-Z]+) to ([a-zA-Z]+) = (\d+)$")
-    with open("./inputs/day_09.txt", encoding="utf-8") as file:
+    with open("./input/day_09.txt", encoding="utf-8") as file:
         for line in file.readlines():
             # Ignore empty lines
             line = line.strip()
@@ -83,7 +73,3 @@ def solve_part2(input_data):
         elif distance > max_distance:
             max_distance = distance
     return max_distance
-
-
-if __name__ == "__main__":
-    main()

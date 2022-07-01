@@ -2,18 +2,8 @@
 Solutions for AOC 2015 Day 5.
 """
 
+
 import re
-
-
-def main():
-    """
-    Solve AOC 2015 Day 5 Parts 1 and 2, printing out the results.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
 
 
 def process_input_file():
@@ -22,7 +12,7 @@ def process_input_file():
     solver functions.
     """
     input_data = []
-    with open("./inputs/day_05.txt", encoding="utf-8") as file:
+    with open("./input/day_05.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
@@ -60,7 +50,3 @@ def solve_part2(input_data):
         if regex_nice_1.match(string) and regex_nice_2.match(string):
             nice_count += 1
     return nice_count
-
-
-if __name__ == "__main__":
-    main()

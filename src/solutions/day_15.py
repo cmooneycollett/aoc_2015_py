@@ -20,17 +20,6 @@ class Ingredient:
     calories: int
 
 
-def main():
-    """
-    Solves AOC 2015 Day 15 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 15 input file into the format required by the
@@ -41,7 +30,7 @@ def process_input_file():
     regex_ingredient = re.compile(
         r"^([a-zA-Z]+): capacity (-?\d+), durability (-?\d+), flavor (-?\d+), "
         r"texture (-?\d+), calories (-?\d+)$")
-    with open("./inputs/day_15.txt", encoding="utf-8") as file:
+    with open("./input/day_15.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
@@ -122,7 +111,3 @@ def calculate_optimal_cookie_score(ingredients, calorie_req=None):
                 if max_cookie_score is None or cookie_score > max_cookie_score:
                     max_cookie_score = cookie_score
     return max_cookie_score
-
-
-if __name__ == "__main__":
-    main()

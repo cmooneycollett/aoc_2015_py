@@ -6,17 +6,6 @@ Solutions for AOC 2015 Day 19.
 import re
 
 
-def main():
-    """
-    Solves AOC 2015 Day 19 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 19 input file into the format required by the
@@ -27,7 +16,7 @@ def process_input_file():
     replacement_recipes = {}
     input_molecule = ""
     regex_recipe = re.compile(r"^([a-zA-Z]+) => ([a-zA-Z]+)$")
-    with open("./inputs/day_19.txt", encoding="utf-8") as file:
+    with open("./input/day_19.txt", encoding="utf-8") as file:
         recipes_phase = True
         for line in file.readlines():
             line = line.strip()
@@ -106,7 +95,3 @@ def reverse_replacement_recipes(recipes):
         for replace in replacements:
             output[replace] = find
     return output
-
-
-if __name__ == "__main__":
-    main()

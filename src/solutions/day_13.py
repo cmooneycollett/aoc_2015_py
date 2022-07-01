@@ -7,17 +7,6 @@ import itertools
 import re
 
 
-def main():
-    """
-    Solves AOC 2015 Day 13 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 13 input file into the format required by the
@@ -29,7 +18,7 @@ def process_input_file():
     regex_happiness_line = re.compile(
         r"^([A-Z][a-z]+) would (gain|lose) (\d+) happiness units by sitting "
         r"next to ([A-Z][a-z]+).$")
-    with open("./inputs/day_13.txt", encoding="utf-8") as file:
+    with open("./input/day_13.txt", encoding="utf-8") as file:
         for line in file.readlines():
             # Skip blank lines
             line = line.strip()
@@ -105,7 +94,3 @@ def find_maximum_happiness_delta(happiness_matrix):
         elif happiness_delta > max_happiness_delta:
             max_happiness_delta = happiness_delta
     return max_happiness_delta
-
-
-if __name__ == "__main__":
-    main()

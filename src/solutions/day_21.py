@@ -2,6 +2,7 @@
 Solutions for AOC 2015 Day 21.
 """
 
+
 from dataclasses import dataclass
 import itertools
 import math
@@ -48,24 +49,13 @@ class ItemStats:
     armour: int
 
 
-def main():
-    """
-    Solves AOC 2015 Day 21 Parts 1 and 2, printing of the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 21 input file into the format required by the
     solver functions. Returned data structure is a boss Entity with the specs
     detailed in the input file.
     """
-    with open("./inputs/day_21.txt", encoding="utf-8") as file:
+    with open("./input/day_21.txt", encoding="utf-8") as file:
         stats = []
         for line in file.readlines():
             line = line.strip()
@@ -199,7 +189,3 @@ def process_combos(item_stat_combos, boss_entity, player_win):
         elif not player_win and cost > target_cost:
             target_cost = cost
     return target_cost
-
-
-if __name__ == "__main__":
-    main()

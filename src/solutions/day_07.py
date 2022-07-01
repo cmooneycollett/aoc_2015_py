@@ -2,6 +2,7 @@
 Solutions for AOC 2015 Day 7.
 """
 
+
 import copy
 import re
 from enum import Enum, auto, unique
@@ -21,17 +22,6 @@ class Operation(Enum):
     OP_RSHIFT = auto()  # Right shift the "left" value by "right" places
 
 
-def main():
-    """
-    Solves AOC 2015 Day 7 Parts 1 and 2, printing out the results.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 7 input file into the format required by the
@@ -46,7 +36,7 @@ def process_input_file():
     regex_op_or = re.compile(r"^([a-z]+|\d+) OR ([a-z]+|\d+) -> ([a-z]+)$")
     regex_op_rshift = re.compile(
         r"^([a-z]+|\d+) RSHIFT ([a-z]+|\d+) -> ([a-z]+)$")
-    with open("./inputs/day_07.txt", encoding="utf-8") as file:
+    with open("./input/day_07.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
@@ -182,7 +172,3 @@ def evaluate_wire(wire_states, wire_known_values, target_wire):
             op_result = left >> right
     # Update known wire values
     wire_known_values[target_wire] = op_result
-
-
-if __name__ == "__main__":
-    main()

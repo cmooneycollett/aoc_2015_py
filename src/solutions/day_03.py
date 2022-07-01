@@ -3,22 +3,11 @@ Solutions for AOC 2015 Day 3.
 """
 
 
-def main():
-    """
-    Solves AOC 2015 Day 3 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 3 input file into format for solver functions.
     """
-    with open("./inputs/day_03.txt", encoding="utf-8") as file:
+    with open("./input/day_03.txt", encoding="utf-8") as file:
         return file.read().strip()
 
 
@@ -83,7 +72,3 @@ def solve_part2(input_data):
             pos_visited.add(tuple(robosanta_pos))
             santa_move = True
     return len(pos_visited)
-
-
-if __name__ == "__main__":
-    main()

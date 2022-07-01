@@ -21,17 +21,6 @@ class Instruction(Enum):
     JUMP_IF_ONE = auto()
 
 
-def main():
-    """
-    Solves AOC 2015 Day 23 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 23 input file into the format required by the
@@ -45,7 +34,7 @@ def process_input_file():
     regex_jump = re.compile(r"jmp ([-+]\d+)")
     regex_jump_if_even = re.compile(r"jie (a|b), ([-+]\d+)")
     regex_jump_if_one = re.compile(r"jio (a|b), ([-+]\d+)")
-    with open("./inputs/day_23.txt", encoding="utf-8") as file:
+    with open("./input/day_23.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
@@ -130,7 +119,3 @@ def process_instructions(instructions, registers):
                     program_counter += instructions[program_counter][2]
                 else:
                     program_counter += 1
-
-
-if __name__ == "__main__":
-    main()

@@ -6,24 +6,13 @@ Solutions for AOC 2015 Day 24.
 import math
 
 
-def main():
-    """
-    Solves AOC 2015 Day 24 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 24 input file into the format required by the
     solver functions. Returned value is a list containing the integer values
     given in the input file.
     """
-    with open("./inputs/day_24.txt", encoding="utf-8") as file:
+    with open("./input/day_24.txt", encoding="utf-8") as file:
         return [int(x.strip()) for x in file.readlines() if len(x.strip()) > 0]
 
 
@@ -97,7 +86,3 @@ def find_min_qe_compartment1_recursive(
     # Not select
     find_min_qe_compartment1_recursive(values, limit, running_list, index + 1,
                                        running_sum, min_len, min_qe)
-
-
-if __name__ == "__main__":
-    main()

@@ -3,24 +3,13 @@ Solutions for AOC 2015 Day 17.
 """
 
 
-def main():
-    """
-    Solves AOC 2015 Day 17 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 17 input file into the format required by the
     solver functions. Returned value is a list containing the int values listed
     in the input file.
     """
-    with open("./inputs/day_17.txt", encoding="utf-8") as file:
+    with open("./input/day_17.txt", encoding="utf-8") as file:
         lines = [line.strip()
                  for line in file.readlines() if len(line.strip()) > 0]
         return [int(n) for n in lines]
@@ -76,7 +65,3 @@ def count_subsets_adding_to_total_recursive(
         count_subsets_adding_to_total_recursive(values, sum_total, i + 1,
                                                 current_total, total_containers,
                                                 container_counts)
-
-
-if __name__ == "__main__":
-    main()

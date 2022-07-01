@@ -6,24 +6,13 @@ Solutions for AOC 2015 Day 18.
 from copy import deepcopy
 
 
-def main():
-    """
-    Solves AOC 2015 Day 18 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 18 input file into the format required by the
     solver functions. Returned data structure is a 2D list
     """
     input_data = []
-    with open("./inputs/day_18.txt", encoding="utf-8") as file:
+    with open("./input/day_18.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
@@ -119,7 +108,3 @@ def count_neighbour_states(lightgrid, loc_x, loc_y):
     for (x_0, y_0) in surrounding_points:
         output[lightgrid[y_0][x_0]] += 1
     return output
-
-
-if __name__ == "__main__":
-    main()

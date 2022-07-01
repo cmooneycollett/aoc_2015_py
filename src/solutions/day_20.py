@@ -3,24 +3,13 @@ Solutions for AOC 2015 Day 20.
 """
 
 
-def main():
-    """
-    Solves AOC 2015 Day 20 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 20 input file into the format required by the
     solver functions. Returned value is the single integer value given in the
     input file.
     """
-    with open("./inputs/day_20.txt", encoding="utf-8") as file:
+    with open("./input/day_20.txt", encoding="utf-8") as file:
         return int(file.read().strip())
 
 
@@ -30,7 +19,7 @@ def solve_part1(input_data):
     the input value, with each elf visiting an infinite number of houses.
     """
     target = input_data
-    presents_arr = [0 for _i in range(0, target)]   # presents per house
+    presents_arr = [0 for _ in range(0, target)]   # presents per house
     house_target = -1
     for elf in range(1, target + 1):
         # Consider problem space up to the target present count
@@ -63,7 +52,3 @@ def solve_part2(input_data):
             break
         elf += 1
     return elf
-
-
-if __name__ == "__main__":
-    main()

@@ -181,24 +181,13 @@ class Player(Entity):
             self.active_effects.pop(effect)
 
 
-def main():
-    """
-    Solves AOC 2015 Day 22 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 22 input file into the input required by the
     solver functions. Returned data structure is a boss Entity with the specs
     given in the input file.
     """
-    with open("./inputs/day_22.txt", encoding="utf-8") as file:
+    with open("./input/day_22.txt", encoding="utf-8") as file:
         enemy_stats = {}
         for line in file.readlines():
             line = line.strip()
@@ -303,7 +292,3 @@ def conduct_fight_recursive(player, boss, min_mana, hard_mode):
             return
         # Player and boss still alive, so go to next turn
         conduct_fight_recursive(new_player, new_boss, min_mana, hard_mode)
-
-
-if __name__ == "__main__":
-    main()

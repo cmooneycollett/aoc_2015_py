@@ -3,23 +3,12 @@ Solutions for AOC 2015 Day 10.
 """
 
 
-def main():
-    """
-    Solves AOC 2015 Day 10 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 10 input file into the format required by the
     solver functions.
     """
-    with open("./inputs/day_10.txt", encoding="utf-8") as file:
+    with open("./input/day_10.txt", encoding="utf-8") as file:
         return file.read().strip()
 
 
@@ -70,7 +59,3 @@ def apply_looksay_iteration(input_string):
         # Add to the output string
         output_string = "".join([output_string, str(streak_len), char])
     return output_string
-
-
-if __name__ == "__main__":
-    main()

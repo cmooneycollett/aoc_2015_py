@@ -6,17 +6,6 @@ Solutions for AOC 2015 Day 16.
 import re
 
 
-def main():
-    """
-    Solves AOC 2015 Day 16 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 16 input file into the format required by the
@@ -28,7 +17,7 @@ def process_input_file():
         r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+), "
         r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+), "
         r"(children|cats|samoyeds|pomeranians|akitas|vizslas|goldfish|trees|cars|perfumes): (\d+)$")
-    with open("./inputs/day_16.txt", encoding="utf-8") as file:
+    with open("./input/day_16.txt", encoding="utf-8") as file:
         for line in file.readlines():
             line = line.strip()
             if len(line) == 0:
@@ -95,7 +84,3 @@ def solve_part2(input_data):
         if is_candidate:
             return candidate_number
     return -1
-
-
-if __name__ == "__main__":
-    main()

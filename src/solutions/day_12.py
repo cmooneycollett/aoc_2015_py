@@ -7,23 +7,12 @@ import json
 import re
 
 
-def main():
-    """
-    Solves AOC 2015 Day 12 Parts 1 and 2, printing out the solutions.
-    """
-    input_data = process_input_file()
-    p1_solution = solve_part1(input_data)
-    print(f"P1 solution - {p1_solution}")
-    p2_solution = solve_part2(input_data)
-    print(f"P2 solution - {p2_solution}")
-
-
 def process_input_file():
     """
     Processes the AOC 2015 Day 12 input file into the format required by the
     solver functions.
     """
-    with open("./inputs/day_12.txt", encoding="utf-8") as file:
+    with open("./input/day_12.txt", encoding="utf-8") as file:
         return file.read().strip()
 
 
@@ -76,7 +65,3 @@ def discover_valid_numbers(numbers_valid, obj):
                 numbers_valid.append(sub_obj)
             elif isinstance(sub_obj, list) or isinstance(sub_obj, dict):
                 discover_valid_numbers(numbers_valid, sub_obj)
-
-
-if __name__ == "__main__":
-    main()
