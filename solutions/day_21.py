@@ -33,7 +33,7 @@ class Entity:
         # Calculate damage per turn
         damage_per_turn = max(self.damage - other.armour, 1)
         # Calculate turns required to defeat the other entity
-        turns = int(math.ceil(other.hp / damage_per_turn))
+        turns = int(math.ceil(other.health / damage_per_turn))
         return turns
 
 

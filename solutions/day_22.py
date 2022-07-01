@@ -122,7 +122,7 @@ class Player(Entity):
         """
         Checks if the Player has enough mana to cast the specified spell.
         """
-        return self.mana >= spell.get_mana_cost()
+        return self.mana >= spell.mana()
 
     def is_effect_active(self, spell):
         """
@@ -138,8 +138,8 @@ class Player(Entity):
         if not self.can_cast_with_mana(spell) or self.is_effect_active(spell):
             return
         # Expend mana to cast spell
-        self.total_mana_spent += spell.get_mana_cost()
-        self.mana -= spell.get_mana_cost()
+        self.total_mana_spent += spell.mana()
+        self.mana -= spell.mana()
         match spell:
             case Spell.MAGIC_MISSILE:
                 enemy.deal_damage(4)
