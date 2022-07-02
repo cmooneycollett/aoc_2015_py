@@ -23,8 +23,8 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Takes the input lightgrid and conducts 100 steps, returning the number of
-    cells that are left lit at the end.
+    Solves AOC 2015 Day 18 Part 1 // Takes the input lightgrid and conducts 100
+    steps, returning the number of cells that are left lit at the end.
     """
     grid = animate_light_grid(input_data, 100)
     return sum(x.count("#") for x in grid)
@@ -32,9 +32,9 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Takes the input lightgrid and conducts 100 steps with the four corner cells
-    stuck in the "on" setting, returning the number of cells that are left lit
-    at the end.
+    Solves AOC 2015 Day 18 Part 2 // Takes the input lightgrid and conducts 100
+    steps with the four corner cells stuck in the "on" setting, returning the
+    number of cells that are left lit at the end.
     """
     # Set the input grid corners to initially be on
     input_grid = deepcopy(input_data)

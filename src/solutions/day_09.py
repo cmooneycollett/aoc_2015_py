@@ -36,9 +36,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Calculates the distance of the shortest route that visits all cities given
-    in the input map, by trying each possible route option and tracking the
-    shortest distance found.
+    Solves AOC 2015 Day 9 Part 1 // Calculates the distance of the shortest
+    route that visits all cities given in the input map, by trying each possible
+    route option and tracking the shortest distance found.
     """
     cities = list(input_data.keys())
     city_permutations = itertools.permutations(cities)
@@ -57,9 +57,9 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Calculates the distance of the longest route that visits all cities given in
-    the input map, by trying each possible route option and tracking the longest
-    distance found.
+    Solves AOC 2015 Day 9 Part 2 // Calculates the distance of the longest route
+    that visits all cities given in the input map, by trying each possible route
+    option and tracking the longest distance found.
     """
     cities = list(input_data.keys())
     city_permutations = itertools.permutations(cities)

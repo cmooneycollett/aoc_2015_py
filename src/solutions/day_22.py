@@ -200,8 +200,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Conducts a fight between the player and the boss, returning the least amount
-    of mana the player needs to spend to beat the boss.
+    Solves AOC 2015 Day 22 Part 1 // Conducts a fight between the player and the
+    boss, returning the least amount of mana the player needs to spend to beat
+    the boss.
     """
     boss = deepcopy(input_data)
     player = Player(50, 500)
@@ -211,10 +212,10 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Conducts a fight between the player and the boss in hard mode (player loses
-    1 HP at start of each of their turns before any effects are processed),
-    returning the least amount of mana the player needs to spend to beat the
-    boss.
+    Solves AOC 2015 Day 22 Part 2 // Conducts a fight between the player and the
+    boss in hard mode (player loses 1 HP at start of each of their turns before
+    any effects are processed), returning the least amount of mana the player
+    needs to spend to beat the boss.
     """
     boss = deepcopy(input_data)
     player = Player(50, 500)

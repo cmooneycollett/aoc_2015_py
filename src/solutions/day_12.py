@@ -18,8 +18,8 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Calculates the total of all numbers discovered in the json data serialised
-    in input.
+    Solves AOC 2015 Day 12 Part 1 // Calculates the total of all numbers
+    discovered in the json data serialised in input.
     """
     # Extract all numbers from the input json string.
     numbers_raw = re.findall(r"-?\d+", input_data)
@@ -28,9 +28,9 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Calculates the total of all valid numbers (not within a json object
-    containing a value of \"red\") discovered in the json data serialised in
-    input.
+    Solves AOC 2015 Day 12 Part 2 // Calculates the total of all valid numbers
+    (not within a json object containing a value of \"red\") discovered in the
+    json data serialised in input.
     """
     numbers_valid = []
     json_data = json.loads(input_data)

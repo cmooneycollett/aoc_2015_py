@@ -19,7 +19,8 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Calculates the code required to start-up the weather machine.
+    Solves AOC 2015 Day 25 Part 1 // Calculates the code required to start-up
+    the weather machine.
     """
     (row, column) = input_data
     # First stage
@@ -38,6 +39,6 @@ def solve_part1(input_data):
 
 def solve_part2(_):
     """
-    No solution required for AOC 2015 Day 25 Part 2 - Christmas has been saved!
+    AOC 2015 Day 25 Part 2 - no solution required - Christmas has been saved!
     """
     return ()

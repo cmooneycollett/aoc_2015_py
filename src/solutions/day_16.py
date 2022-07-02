@@ -38,8 +38,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Determines which is the real Aunt Sue by matching observations against the
-    output information from the My First Crime Scene Analysis Machine (MFCSAM).
+    Solves AOC 2015 Day 16 Part 1 // Determines which is the real Aunt Sue by
+    matching observations against the output information from the My First Crime
+    Scene Analysis Machine (MFCSAM).
     """
     sue_details = {"children": 3, "cats": 7, "samoyeds": 2, "pomeranians": 3,
                    "akitas": 0, "vizslas": 0, "goldfish": 5, "trees": 3,
@@ -57,10 +58,10 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Determines which is the real Aunt Sue by matching observations against the
-    output information from the MFCSAM, taking into account the greater than
-    fields for "cats" and "trees", and the less than fields for "pomeranians"
-    and "goldfish".
+    Solves AOC 2015 Day 16 Part 2 // Determines which is the real Aunt Sue by
+    matching observations against the output information from the MFCSAM, taking
+    into account the greater than fields for "cats" and "trees", and the less
+    than fields for "pomeranians" and "goldfish".
     """
     sue_details = {"children": 3, "cats": 7, "samoyeds": 2, "pomeranians": 3,
                    "akitas": 0, "vizslas": 0, "goldfish": 5, "trees": 3,

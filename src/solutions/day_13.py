@@ -40,9 +40,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Determines the total change in happiness for the optimal seating arrangement
-    by checking each possible order of guests, calculating result and comparing
-    to running optimal value.
+    Solves AOC 2015 Day 13 Part 1 // Determines the total change in happiness
+    for the optimal seating arrangement by checking each possible order of
+    guests, calculating result and comparing to running optimal value.
     """
     max_happiness_delta = find_maximum_happiness_delta(input_data)
     return max_happiness_delta
@@ -50,10 +50,10 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Determines the total change in happiness for the optimal seating arrangement
-    including self seated (0 happiness gained or lost for these interactions) by
-    checking each possible order of guests, calculating result and comparing to
-    the running optimal value.
+    Solves AOC 2015 Day 13 Part 2 // Determines the total change in happiness
+    for the optimal seating arrangement including self seated (0 happiness
+    gained or lost for these interactions) by checking each possible order of
+    guests, calculating result and comparing to the running optimal value.
     """
     # Update the new happiness matrix to include self
     new_happiness_matrix = dict(input_data)

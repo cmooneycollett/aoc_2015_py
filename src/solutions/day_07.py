@@ -100,8 +100,8 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Evaluates the inputs to the wire system and returns the resulting value
-    provided to wire "a".
+    Solves AOC 2015 Day 7 Part 1 // Evaluates the inputs to the wire system and
+    returns the resulting value provided to wire "a".
     """
     wire_known_values = {}
     evaluate_wire(input_data, wire_known_values, "a")
@@ -110,10 +110,10 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Conducts initial pass of wire system evaluation, overrides the "b" wire with
-    the "a" wire result, resets the other wires and re-evaluates the wire
-    system. Returns the value provided to the "a" wire after the second wire
-    system evaluation.
+    Solves AOC 2015 Day 7 Part 2 // Conducts initial pass of wire system
+    evaluation, overrides the "b" wire with the "a" wire result, resets the
+    other wires and re-evaluates the wire system. Returns the value provided to
+    the "a" wire after the second wire system evaluation.
     """
     # Conduct first pass
     wire_known_values = {}

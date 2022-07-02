@@ -23,8 +23,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Checks input strings for "niceness" (using the Part 1 properties specified
-    in problem description), and returns how many of the strings are nice.
+    Solves AOC 2015 Day 5 Part 1 // Checks input strings for "niceness" (using
+    the Part 1 properties specified in problem description), and returns how
+    many of the strings are nice.
     """
     regex_nice_1 = re.compile(r"^.*([aeiou]).*([aeiou]).*([aeiou]).*$")
     regex_nice_2 = re.compile(r"^.*([a-z])\1.*$")
@@ -39,9 +40,9 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Checks input strings for "niceness" (using the updated Part 2 properties
-    specified in problem description), and returns how many of the strings are
-    nice.
+    Solves AOC 2015 Day 5 Part 2 // Checks input strings for "niceness" (using
+    the updated Part 2 properties specified in problem description), and returns
+    how many of the strings are nice.
     """
     regex_nice_1 = re.compile(r"^.*([a-z][a-z]).*\1.*$")
     regex_nice_2 = re.compile(r"^.*([a-z])[a-z]\1.*$")

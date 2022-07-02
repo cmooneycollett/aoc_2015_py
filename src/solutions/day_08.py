@@ -23,9 +23,10 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Calculates the difference between the number of characters in the string
-    literals (input) and the converted "in-memory" representations of the
-    strings (using the rules given in the problem description).
+    Solves AOC 2015 Day 8 Part 1 // Calculates the difference between the number
+    of characters in the string literals (input) and the converted "in-memory"
+    representations of the strings (using the rules given in the problem
+    description).
     """
     total_len_str_literal = 0
     total_len_str_inmem = 0
@@ -45,9 +46,9 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Calculates the difference between the number of characters between the
-    newly-encoded strings (using the rules given in the problem description) and
-    the original string literals (input).
+    Solves AOC 2015 Day 8 Part 2 // Calculates the difference between the number
+    of characters between the newly-encoded strings (using the rules given in
+    the problem description) and the original string literals (input).
     """
     total_len_str_literal = 0
     total_len_str_escaped = 0

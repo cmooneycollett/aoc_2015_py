@@ -14,8 +14,8 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Applies 40 iterations of the "look-and-say" process to the input string,
-    returning the resulting string.
+    Solves AOC 2015 Day 10 Part 1 // Applies 40 iterations of the "look-and-say"
+    algorithm to the input string, returning the resulting string.
     """
     result_string = str(input_data)
     for _ in range(0, 40):
@@ -25,8 +25,8 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Applies 50 iterations of the "look-and-say" process to the input string,
-    returning the resulting string.
+    Solves AOC 2015 Day 10 Part 2 // Applies 50 iterations of the "look-and-say"
+    algorithm to the input string, returning the resulting string.
     """
     result_str = str(input_data)
     for _ in range(0, 50):

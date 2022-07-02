@@ -15,8 +15,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Determines the lowest house number to receive at least as many presents as
-    the input value, with each elf visiting an infinite number of houses.
+    Solves AOC 2015 Day 20 Part 1 // Determines the lowest house number to
+    receive at least as many presents as the input value, with each elf visiting
+    an infinite number of houses.
     """
     target = input_data
     presents_arr = [0 for _ in range(0, target)]   # presents per house
@@ -33,9 +34,9 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Determines the lowest house number to receive at least as many presents as
-    the input value, with each elf visiting 50 houses (including their starting
-    house).
+    Solves AOC 2015 Day 20 Part 2 // Determines the lowest house number to
+    receive at least as many presents as the input value, with each elf visiting
+    50 houses (including their starting house).
     """
     target = input_data
     presets_record = {}

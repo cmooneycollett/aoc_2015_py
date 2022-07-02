@@ -98,7 +98,8 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Calculates the total distance travelled by the winning reindeer.
+    Solves AOC 2015 Day 14 Part 1 // Calculates the total distance travelled by
+    the winning reindeer.
     """
     race_duration = 2503    # seconds
     distances_travelled = []
@@ -110,7 +111,8 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Calculates the total points awarded to the winning reindeer.
+    Solves AOC 2015 Day 14 Part 2 // Calculates the total points awarded to the
+    winning reindeer.
     """
     race_duration = 2503    # seconds
     # Create the reindeers

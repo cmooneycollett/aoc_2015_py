@@ -17,8 +17,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Finds the first MD5 hash of input key and sequence number that begins with
-    five zeroes, returning the corresponding sequence number.
+    Solves AOC 2015 Day 4 Part 1 // Finds the first MD5 hash of input key and
+    sequence number that begins with five zeroes, returning the corresponding
+    sequence number.
     """
     sequence_num = 0
     while True:
@@ -32,8 +33,9 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Finds the first MD5 hash of the input key and sequence number that begins
-    with six zeroes, returning the corresponding sequence number.
+    Solves AOC 2015 Day 4 Part 2 // Finds the first MD5 hash of the input key
+    and sequence number that begins with six zeroes, returning the corresponding
+    sequence number.
     """
     sequence_num = 0
     while True:

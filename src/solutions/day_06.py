@@ -65,9 +65,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Modifies the state of the light grid (1000x1000 tiles, all tiles start off)
-    by processing the input instructions. Returns how many lights are lit after
-    following all instructions.
+    Solves AOC 2015 Day 6 Part 1 // Modifies the state of the light grid
+    (1000x1000 tiles, all tiles start off) by processing the input instructions.
+    Returns how many lights are lit after following all instructions.
     """
     # Initialise grid to track light states
     lightgrid = [[False for x in range(1000)] for x in range(1000)]
@@ -93,10 +93,10 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Modifies the state of the light grid (1000x1000 grid, all tiles starting
-    with brightness 0) by processing the input instructions (using Part 2
-    rules). Returns the total brightness of all lights after following all
-    instructions.
+    Solves AOC 2015 Day 6 Part 2 // Modifies the state of the light grid
+    (1000x1000 grid, all tiles starting with brightness 0) by processing the
+    input instructions (using Part 2 rules). Returns the total brightness of all
+    lights after following all instructions.
     """
     # Initialise lightgrid
     lightgrid = [[0 for x in range(1000)] for x in range(1000)]

@@ -69,8 +69,8 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Determines the minimum cost of items the player can purchase and still
-    defeat the boss.
+    Solves AOC 2015 Day 21 Part 1 // Determines the minimum cost of items the
+    player can purchase and still defeat the boss.
     """
     boss_entity = input_data
     item_stat_combos = determine_item_combinations()
@@ -80,8 +80,8 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Determines the maximum cost of items the player can purchase and still lose
-    the boss fight.
+    Solves AOC 2015 Day 21 Part 2 // Determines the maximum cost of items the
+    player can purchase and still lose the boss fight.
     """
     boss_entity = input_data
     item_stat_combos = determine_item_combinations()

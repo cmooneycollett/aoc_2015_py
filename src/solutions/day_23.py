@@ -71,8 +71,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Processes the input instructions with "a" and "b" registers starting with
-    value 0, returning the final value of the "b" register.
+    Solves AOC 2015 Day 23 Part 1 // Processes the input instructions with "a"
+    and "b" registers starting with value 0, returning the final value of the
+    "b" register.
     """
     registers = {"a": 0, "b": 0}  # Registers
     process_instructions(input_data, registers)
@@ -81,8 +82,9 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Processes the input instructions with "a" register starting at 1 and "b"
-    register starting at 0, returning the final value of the "b" register.
+    Solves AOC 2015 Day 23 Part 2 // Processes the input instructions with "a"
+    register starting at 1 and "b" register starting at 0, returning the final
+    value of the "b" register.
     """
     registers = {"a": 1, "b": 0}  # Registers
     process_instructions(input_data, registers)

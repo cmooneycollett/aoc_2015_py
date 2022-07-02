@@ -13,7 +13,8 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Calculates the final floor result from processing the input instructions.
+    Solves AOC 2015 Day 1 Part 1 // alculates the final floor result from
+    processing the input instructions.
     """
     floor = 0
     for char in input_data:
@@ -26,8 +27,8 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Calculates the location of the input character that causes Santa to first
-    enter the basement floor.
+    Solves AOC 2015 Day 1 Part 2 // Calculates the location of the input
+    character that causes Santa to first enter the basement floor.
     """
     pos = 1
     floor = 0

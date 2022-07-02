@@ -18,9 +18,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Finds the minimum quantum entangement for compartment 1 (passenger
-    compartment) in the optimal arrangement, when dividing the values across
-    three separate compartments with equal sums.
+    Solves AOC 2015 Day 24 Part 1 // Finds the minimum quantum entangement (QE)
+    for compartment 1 (passenger compartment) in the optimal arrangement, when
+    dividing the values across three separate compartments with equal sums.
     """
     total = sum(input_data)
     min_qe = find_min_qe_compartment1(input_data, total // 3)
@@ -29,9 +29,9 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Finds the minimum quantum entangement for compartment 1 (passenger
-    compartment) in the optimal arrangement, when dividing the values across
-    four separate compartments with equal sums.
+    Solves AOC 2015 Day 24 Part 2 // Finds the minimum quantum entangement (QE)
+    for compartment 1 (passenger compartment) in the optimal arrangement, when
+    dividing the values across four separate compartments with equal sums.
     """
     total = sum(input_data)
     min_qe = find_min_qe_compartment1(input_data, total // 4)

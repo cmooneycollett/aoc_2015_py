@@ -13,8 +13,8 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Calculates the number of houses that receive at least one present, after
-    Santa travels along path specified in input.
+    Solves AOC 2015 Day 3 Part 1 // Calculates the number of houses that receive
+    at least one present, after Santa travels along path specified in input.
     """
     santa_pos = [0, 0]
     pos_visited = set()
@@ -35,8 +35,9 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Calculates the number of houses that receive at least one present, after
-    Santa and Robo-Santa take alternating moves taken from input.
+    Solves AOC 2015 Day 3 Part 2 // Calculates the number of houses that receive
+    at least one present, after Santa and Robo-Santa take alternating moves
+    taken from input.
     """
     santa_pos = [0, 0]
     robosanta_pos = [0, 0]

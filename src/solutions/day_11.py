@@ -17,14 +17,16 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Finds the next valid password after the given initial password.
+    Solves AOC 2015 Day 11 Part 1 // Finds the next valid password after the
+    given initial password.
     """
     return find_next_valid_password(input_data)
 
 
 def solve_part2(input_data):
     """
-    Find the second next valid password after the given initial password.
+    Solves AOC 2015 Day 11 Part 2 // Find the second next valid password after
+    the given initial password.
     """
     first_pass = find_next_valid_password(input_data)
     return find_next_valid_password(first_pass)

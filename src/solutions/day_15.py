@@ -51,17 +51,18 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Finds the total score for the highest-scoring cookie by combining the input
-    ingredients, using exactly 100 units (tsp) of ingredients total.
+    Solves AOC 2015 Day 15 Part 1 // Finds the total score for the
+    highest-scoring cookie by combining the input ingredients, using exactly 100
+    units (tsp) of ingredients total.
     """
     return calculate_optimal_cookie_score(input_data)
 
 
 def solve_part2(input_data):
     """
-    Finds the total score for the highest-scoring cookie with exactly 500
-    calories by combining the input ingredients, using exactly 100 units (tsp)
-    of ingredients total.
+    Solves AOC 2015 Day 15 Part 2 // Finds the total score for the
+    highest-scoring cookie with exactly 500 calories by combining the input
+    ingredients, using exactly 100 units (tsp) of ingredients total.
     """
     return calculate_optimal_cookie_score(input_data, calorie_req=500)
 

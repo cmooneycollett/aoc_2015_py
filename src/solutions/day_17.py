@@ -17,17 +17,18 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Calculates the total number of ways that the input values can be selected
-    in such a way that the selected values add up to 150.
+    Solves AOC 2015 Day 17 Part 1 // Calculates the total number of ways that
+    the input values can be selected in such a way that the selected values add
+    up to 150.
     """
     return sum(count_subsets_adding_to_total(input_data, 150).values())
 
 
 def solve_part2(input_data):
     """
-    Calculates the number of ways the input values can be selected in such a way
-    that the selected values add up to 150, and the number of selected values is
-    the minimum possible number.
+    Solves AOC 2015 Day 17 Part 2 // Calculates the number of ways the input
+    values can be selected in such a way that the selected values add up to 150,
+    and the number of selected values is the minimum possible number.
     """
     container_counts = count_subsets_adding_to_total(input_data, 150)
     min_containers = min(container_counts.keys())

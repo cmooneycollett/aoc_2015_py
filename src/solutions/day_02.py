@@ -27,8 +27,8 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Calculates the total square feet of wrapping paper required to wrap the
-    presents specified in input.
+    Solves AOC 2015 Day 2 Part 1 // Calculates the total square feet of wrapping
+    paper required to wrap the presents specified in input.
     """
     total_paper = 0  # unit: square feet
     for data in input_data:
@@ -40,8 +40,8 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Calculates the total length of ribbon in feet required to wrap the presents
-    specified in input.
+    Solves AOC 2015 Day 2 Part 2 // Calculates the total length of ribbon in
+    feet required to wrap the presents specified in input.
     """
     total_ribbon = 0    # unit: feet
     for data in input_data:

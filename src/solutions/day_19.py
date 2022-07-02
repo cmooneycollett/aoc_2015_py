@@ -37,8 +37,9 @@ def process_input_file():
 
 def solve_part1(input_data):
     """
-    Determines the number of unique molecules that can be created by conducting
-    all possible replacements on the input molecule.
+    Solves AOC 2015 Day 19 Part 1 // Determines the number of unique molecules
+    that can be created by conducting all possible replacements on the input
+    molecule.
     """
     unique_outputs = set()
     input_molecule = input_data[0]
@@ -61,8 +62,8 @@ def solve_part1(input_data):
 
 def solve_part2(input_data):
     """
-    Determines the fewest replacement steps required to build the input medicine
-    molecule from a single electron "e".
+    Solves AOC 2015 Day 19 Part 1 // Determines the fewest replacement steps
+    required to build the input medicine molecule from a single electron "e".
     """
     molecule = str(input_data[0])
     reverse_replacements = reverse_replacement_recipes(input_data[1])
