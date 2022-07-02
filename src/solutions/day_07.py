@@ -38,58 +38,51 @@ def process_input_file():
         r"^([a-z]+|\d+) RSHIFT ([a-z]+|\d+) -> ([a-z]+)$")
     with open("./input/day_07.txt", encoding="utf-8") as file:
         for line in file.readlines():
-            line = line.strip()
-            if len(line) == 0:
+            if len(line := line.strip()) == 0:
                 continue
-            if regex_op_value.match(line):
-                m_value = regex_op_value.match(line)
-                value = m_value.group(1)
-                output = m_value.group(2)
+            if (match_line := regex_op_value.match(line)):
+                value = match_line.group(1)
+                output = match_line.group(2)
                 if value.isnumeric():
                     value = int(value)
                 input_data[output] = (Operation.OP_VALUE, value)
-            elif regex_op_and.match(line):
-                match_and = regex_op_and.match(line)
-                left = match_and.group(1)
-                right = match_and.group(2)
-                output = match_and.group(3)
+            elif (match_line := regex_op_and.match(line)):
+                left = match_line.group(1)
+                right = match_line.group(2)
+                output = match_line.group(3)
                 if left.isnumeric():
                     left = int(left)
                 if right.isnumeric():
                     right = int(right)
                 input_data[output] = (Operation.OP_AND, left, right)
-            elif regex_op_lshift.match(line):
-                match_lshift = regex_op_lshift.match(line)
-                left = match_lshift.group(1)
-                right = match_lshift.group(2)
-                output = match_lshift.group(3)
+            elif (match_line := regex_op_lshift.match(line)):
+                left = match_line.group(1)
+                right = match_line.group(2)
+                output = match_line.group(3)
                 if left.isnumeric():
                     left = int(left)
                 if right.isnumeric():
                     right = int(right)
                 input_data[output] = (Operation.OP_LSHIFT, left, right)
-            elif regex_op_not.match(line):
-                match_not = regex_op_not.match(line)
-                value = match_not.group(1)
-                output = match_not.group(2)
+            elif (match_line := regex_op_not.match(line)):
+                value = match_line.group(1)
+                output = match_line.group(2)
                 if value.isnumeric():
                     value = int(value)
                 input_data[output] = (Operation.OP_NOT, value)
-            elif regex_op_or.match(line):
-                match_or = regex_op_or.match(line)
-                left = match_or.group(1)
-                right = match_or.group(2)
-                output = match_or.group(3)
+            elif (match_line := regex_op_or.match(line)):
+                left = match_line.group(1)
+                right = match_line.group(2)
+                output = match_line.group(3)
                 if left.isnumeric():
                     left = int(left)
                 if right.isnumeric():
                     right = int(right)
                 input_data[output] = (Operation.OP_OR, left, right)
-            elif regex_op_rshift.match(line):
-                match_rshift = regex_op_rshift.match(line)
-                left = match_rshift.group(1)
-                right = match_rshift.group(2)
-                output = match_rshift.group(3)
+            elif (match_line := regex_op_rshift.match(line)):
+                left = match_line.group(1)
+                right = match_line.group(2)
+                output = match_line.group(3)
                 if left.isnumeric():
                     left = int(left)
                 if right.isnumeric():
