@@ -33,31 +33,28 @@ def process_input_file():
             if len(line) == 0:
                 continue
             # On regex
-            m_on = regex_on.match(line)
-            if m_on:
-                loc_x1 = int(m_on.group(2))
-                loc_y1 = int(m_on.group(3))
-                loc_x2 = int(m_on.group(4))
-                loc_y2 = int(m_on.group(5))
+            if (match_on := regex_on.match(line)) is not None:
+                loc_x1 = int(match_on.group(2))
+                loc_y1 = int(match_on.group(3))
+                loc_x2 = int(match_on.group(4))
+                loc_y2 = int(match_on.group(5))
                 data = (Instruction.TURN_ON, loc_x1, loc_y1, loc_x2, loc_y2)
                 input_data.append(data)
                 continue
             # Off regex
-            m_off = regex_off.match(line)
-            if m_off:
-                loc_x1 = int(m_off.group(2))
-                loc_y1 = int(m_off.group(3))
-                loc_x2 = int(m_off.group(4))
-                loc_y2 = int(m_off.group(5))
+            if (match_off := regex_off.match(line)):
+                loc_x1 = int(match_off.group(2))
+                loc_y1 = int(match_off.group(3))
+                loc_x2 = int(match_off.group(4))
+                loc_y2 = int(match_off.group(5))
                 data = (Instruction.TURN_OFF, loc_x1, loc_y1, loc_x2, loc_y2)
                 input_data.append(data)
             # Toggle regex
-            m_tog = regex_toggle.match(line)
-            if m_tog:
-                loc_x1 = int(m_tog.group(2))
-                loc_y1 = int(m_tog.group(3))
-                loc_x2 = int(m_tog.group(4))
-                loc_y2 = int(m_tog.group(5))
+            if (match_toggle := regex_toggle.match(line)):
+                loc_x1 = int(match_toggle.group(2))
+                loc_y1 = int(match_toggle.group(3))
+                loc_x2 = int(match_toggle.group(4))
+                loc_y2 = int(match_toggle.group(5))
                 data = (Instruction.TOGGLE, loc_x1, loc_y1, loc_x2, loc_y2)
                 input_data.append(data)
     return input_data
@@ -69,26 +66,21 @@ def solve_part1(input_data):
     (1000x1000 tiles, all tiles start off) by processing the input instructions.
     Returns how many lights are lit after following all instructions.
     """
-    # Initialise grid to track light states
-    lightgrid = [[False for x in range(1000)] for x in range(1000)]
+    # Initialise lightgrid - all lights start as off
+    lightgrid = [[False for _ in range(1000)] for _ in range(1000)]
     # Process each instruction
-    for (instruct, loc_x1, loc_y1, loc_x2, loc_y2) in input_data:
-        for i in range(loc_x1, loc_x2 + 1):
-            for j in range(loc_y1, loc_y2 + 1):
-                match instruct:
+    for (instruction, loc_x1, loc_y1, loc_x2, loc_y2) in input_data:
+        for loc_y in range(loc_y1, loc_y2 + 1):
+            for loc_x in range(loc_x1, loc_x2 + 1):
+                match instruction:
                     case Instruction.TURN_ON:
-                        lightgrid[j][i] = True
+                        lightgrid[loc_y][loc_x] = True
                     case Instruction.TURN_OFF:
-                        lightgrid[j][i] = False
+                        lightgrid[loc_y][loc_x] = False
                     case Instruction.TOGGLE:
-                        lightgrid[j][i] = not lightgrid[j][i]
+                        lightgrid[loc_y][loc_x] = not lightgrid[loc_y][loc_x]
     # Count number of lights that are lit
-    count = 0
-    for i in range(1000):
-        for j in range(1000):
-            if lightgrid[j][i] is True:
-                count += 1
-    return count
+    return sum(row.count(True) for row in lightgrid)
 
 
 def solve_part2(input_data):
@@ -98,25 +90,21 @@ def solve_part2(input_data):
     input instructions (using Part 2 rules). Returns the total brightness of all
     lights after following all instructions.
     """
-    # Initialise lightgrid
-    lightgrid = [[0 for x in range(1000)] for x in range(1000)]
+    # Initialise lightgrid - starting brightness 0 for all lights
+    lightgrid = [[0 for _ in range(1000)] for _ in range(1000)]
     # Process each instruction
-    for (instruct, loc_x1, loc_y1, loc_x2, loc_y2) in input_data:
-        for i in range(loc_x1, loc_x2 + 1):
-            for j in range(loc_y1, loc_y2 + 1):
-                match(instruct):
+    for (instruction, loc_x1, loc_y1, loc_x2, loc_y2) in input_data:
+        for loc_y in range(loc_y1, loc_y2 + 1):
+            for loc_x in range(loc_x1, loc_x2 + 1):
+                match(instruction):
                     case Instruction.TURN_ON:
-                        lightgrid[j][i] += 1
+                        lightgrid[loc_y][loc_x] += 1
                     case Instruction.TURN_OFF:
-                        lightgrid[j][i] -= 1
+                        lightgrid[loc_y][loc_x] -= 1
                     case Instruction.TOGGLE:
-                        lightgrid[j][i] += 2
+                        lightgrid[loc_y][loc_x] += 2
                 # Ensure brightness is kept at or above 0
-                if lightgrid[j][i] < 0:
-                    lightgrid[j][i] = 0
+                if lightgrid[loc_y][loc_x] < 0:
+                    lightgrid[loc_y][loc_x] = 0
     # Count total brightness of all lights
-    total_brightness = 0
-    for i in range(1000):
-        for j in range(1000):
-            total_brightness += lightgrid[j][i]
-    return total_brightness
+    return sum(sum(row) for row in lightgrid)
