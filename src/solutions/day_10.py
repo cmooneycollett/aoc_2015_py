@@ -39,7 +39,7 @@ def apply_looksay_iteration(input_string):
     Returns the result of applying one iteration of the "look-and-say" process
     to the input string.
     """
-    output_string = str("")
+    new_sequence = []   # Store the components of output string, before joining
     i = 0
     while True:
         if i >= len(input_string):
@@ -57,5 +57,7 @@ def apply_looksay_iteration(input_string):
             else:
                 break
         # Add to the output string
-        output_string = "".join([output_string, str(streak_len), char])
-    return output_string
+        new_sequence.append(str(streak_len))
+        new_sequence.append(char)
+    # Join the components of the new sequence at the end to save processing time
+    return "".join(new_sequence)

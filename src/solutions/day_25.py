@@ -38,6 +38,6 @@ def solve_part1(input_data):
 
 def solve_part2(_):
     """
-    No solution required - Christmas has been saved!
+    No solution required for AOC 2015 Day 25 Part 2 - Christmas has been saved!
     """
     return ()
